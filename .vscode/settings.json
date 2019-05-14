@@ -1,0 +1,9 @@
+{
+    "editor.insertSpaces": false,
+    "eslint.enable": true,
+    "eslint.options": { "configFile": "./.eslintrc.json" },
+    "eslint.validate":  [
+        "javascript",
+        "typescript"
+    ]
+}

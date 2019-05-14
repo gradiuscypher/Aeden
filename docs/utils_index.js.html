@@ -1,0 +1,302 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Source: utils/index.js | Source: utils/index.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/tui-doc.css">
+
+    
+</head>
+<body>
+<nav class="lnb" id="lnb">
+    <div class="logo" style="width: 50px; height: 50px">
+        
+            <a href="https://www.brianzero.org/" rel="noopener noreferrer" target="_blank">
+                <img src="https://i.imgur.com/lwqz5Co.png" width="100%" height="100%">
+            </a>
+        
+    </div>
+    <div class="title">
+        <h1><a href="index.html" class="link">Source: utils/index.js</a></h1>
+        
+    </div>
+    <div class="search-container" id="search-container">
+        <input type="text" placeholder="Search">
+        <ul></ul>
+    </div>
+    
+    <div class="lnb-api hidden"><h3>Classes</h3><ul><li><a href="AedenApiClient.html">AedenApiClient</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="AedenApiClient_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="AedenApiClient.html#._kill">_kill</a></li><li><a href="AedenApiClient.html#.init">init</a></li><li><a href="AedenApiClient.html#.instance">instance</a></li></ul></div></li><li><a href="AedenDiscordClient.html">AedenDiscordClient</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="AedenDiscordClient_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="AedenDiscordClient.html#._onClientReady">_onClientReady</a></li><li><a href="AedenDiscordClient.html#._onDisconnect">_onDisconnect</a></li><li><a href="AedenDiscordClient.html#._onPause">_onPause</a></li></ul></div></li></ul></div><div class="lnb-api hidden"><h3>Namespaces</h3><ul><li><a href="API.html">API</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="API_sub"></div></li><li><a href="API.delete.html">API.delete</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="API.delete_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="API.delete.html#.deleteMessage">deleteMessage</a></li></ul></div></li><li><a href="API.get.html">API.get</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="API.get_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="API.get.html#.getEditableMessages">getEditableMessages</a></li><li><a href="API.get.html#.getEmojis">getEmojis</a></li><li><a href="API.get.html#.isAedenHere">isAedenHere</a></li></ul></div></li><li><a href="API.post.html">API.post</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="API.post_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="API.post.html#.createMessage">createMessage</a></li></ul></div></li><li><a href="API.put.html">API.put</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="API.put_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="API.put.html#.updateMessage">updateMessage</a></li></ul></div></li></ul></div><div class="lnb-api hidden"><h3>Modules</h3><ul><li><a href="module-Handlers.html">Handlers</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="module:Handlers_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="module-Handlers.html#~BodyRequestParsing">BodyRequestParsing</a></li><li><a href="module-Handlers.html#~Compression">Compression</a></li><li><a href="module-Handlers.html#~Cors">Cors</a></li><li><a href="module-Handlers.html#~Whitelist">Whitelist</a></li></ul></div></li><li><a href="module-Middleware.html">Middleware</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="module:Middleware_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="module-Middleware.html#~Apply">Apply</a></li><li><a href="module-Middleware.html#~Routes">Routes</a></li></ul></div></li><li><a href="module-Util.html">Util</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="module:Util_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="module-Util.html#.createApodEmbed">createApodEmbed</a></li><li><a href="module-Util.html#.createXkcdEmbed">createXkcdEmbed</a></li><li><a href="module-Util.html#.fetchApod">fetchApod</a></li><li><a href="module-Util.html#.fetchComic">fetchComic</a></li><li><a href="module-Util.html#.fetchCurrentComicCount">fetchCurrentComicCount</a></li><li><a href="module-Util.html#.getRandomApodUri">getRandomApodUri</a></li><li><a href="module-Util.html#.isNumerical">isNumerical</a></li><li><a href="module-Util.html#.pad">pad</a></li><li><a href="module-Util.html#.processApod">processApod</a></li><li><a href="module-Util.html#.removeInvalidMessages">removeInvalidMessages</a></li></ul></div></li></ul></div><div class="lnb-api hidden"><h3>Interfaces</h3><ul><li><a href="Comic.html">Comic</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="Comic_sub"><div class="member-type">Members</div><ul class="inner"><li><a href="Comic.html#alt">alt</a></li><li><a href="Comic.html#img">img</a></li><li><a href="Comic.html#num">num</a></li><li><a href="Comic.html#title">title</a></li></ul></div></li><li><a href="Constants.html">Constants</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="Constants_sub"><div class="member-type">Members</div><ul class="inner"><li><a href="Constants.html#rssFeedXkcd">rssFeedXkcd</a></li><li><a href="Constants.html#urlApod">urlApod</a></li><li><a href="Constants.html#urlApodImgBase">urlApodImgBase</a></li><li><a href="Constants.html#urlApodRandom">urlApodRandom</a></li><li><a href="Constants.html#urlXkcd">urlXkcd</a></li></ul></div></li><li><a href="Picture.html">Picture</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="Picture_sub"><div class="member-type">Members</div><ul class="inner"><li><a href="Picture.html#desc">desc</a></li><li><a href="Picture.html#img">img</a></li><li><a href="Picture.html#title">title</a></li></ul></div></li><li><a href="RequestOptions.html">RequestOptions</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="RequestOptions_sub"><div class="member-type">Members</div><ul class="inner"><li><a href="RequestOptions.html#headers">headers</a></li><li><a href="RequestOptions.html#json">json</a></li><li><a href="RequestOptions.html#uri">uri</a></li></ul></div></li><li><a href="Route.html">Route</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="Route_sub"><div class="member-type">Members</div><ul class="inner"><li><a href="Route.html#handler">handler</a></li><li><a href="Route.html#method">method</a></li><li><a href="Route.html#path">path</a></li></ul></div></li></ul></div>
+</nav>
+<div id="resizer"></div>
+
+<div class="main" id="main">
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const discord_js_1 = require("discord.js");
+const Constants_1 = require("./Constants");
+const cheerio = require("cheerio");
+const req = require("request-promise");
+/**
+ * @module Util
+ * @description Utility class containing static methods.
+ */
+class Util {
+    /**
+     * @static
+     * @async
+     * @method fetchApod
+     * @description Method to fetch APoD {@link Picture Pictures}.
+     * @param {boolean?} isRandom - Are we fetching a random APoD {@link Picture}?
+     * @returns {Promise&lt;MessageEmbed>} The APoD {@link MessageEmbed}.
+     */
+    static async fetchApod(isRandom) {
+        const uri = (isRandom) ? this.getRandomApodUri() : Constants_1.default.urlApod;
+        const options = {
+            "uri": uri,
+            "headers": [{ "Connection": "keep-alive" }],
+            "json": true
+        };
+        return new Promise((resolve, reject) => {
+            req(options)
+                .then((body) => {
+                const item = this.processApod(cheerio.load(body), uri);
+                resolve(this.createApodEmbed(item));
+            })
+                .catch(function _reject(err) {
+                reject(err);
+            });
+        });
+    }
+    /**
+     * @static
+     * @method getRandomApodUri
+     * @description Method to generate a random URI from NASA's APoD archives.
+     * @returns {string} The URI for a random NASA APoD {@link Picture}.
+     */
+    static getRandomApodUri() {
+        const now = new Date();
+        const min = new Date(1995, 5, 16).getTime();
+        const max = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 18, 59, 59, 999).getTime() - (5 * 60 * 60 * 1000);
+        const mMin = new Date(1995, 5, 17).getTime();
+        const mMax = new Date(1995, 5, 19, 23, 59, 59, 999).getTime();
+        let rDate = Math.round(min + Math.random() * (max - min));
+        while (rDate >= mMin &amp;&amp; rDate &lt;= mMax) {
+            rDate = Math.round(min + Math.random() * (max - min));
+        }
+        const randomDate = new Date(rDate);
+        const rDay = (0 + randomDate.getDate().toString()).slice(-2);
+        const rMonth = (0 + (randomDate.getMonth() + 1).toString()).slice(-2);
+        const rYear = randomDate.getFullYear().toString();
+        return `${Constants_1.default.urlApodRandom}${rYear.slice(-2)}${rMonth}${rDay}.html`;
+    }
+    /**
+     * @static
+     * @method processApod
+     * @description Method create an {@link Picture} from a `CheerioStatic` item.
+     * @param {cheerio.CheerioStatic} $ - The `CheerioStatic` item to process into an {@link Picture}.
+     * @param {string} uri - The URI of the APoD.
+     * @returns {Picture} The processed {@link Picture}.
+     */
+    static processApod($, uri) {
+        const title = $('center + center > b:first-child').text().trim();
+        const img = $('img').attr('src');
+        let desc = $('center + center + p').text().trim()
+            .replace(/(\s)+/g, ' ')
+            .replace(/(\r\n|\n|\r)/gm, '')
+            .replace(/(Explanation:)/, '');
+        desc = (desc === '') ? '*There is no description for this content.*' : desc;
+        desc = (desc.length > 250) ? `${desc.substring(0, 250)}... [read more »](${uri})` : desc;
+        return {
+            "title": title,
+            "img": Constants_1.default.urlApodImgBase + img,
+            "desc": desc
+        };
+    }
+    /**
+     * @static
+     * @method createApodEmbed
+     * @description Method to create a {@link MessageEmbed} for a specific {@link Picture}.
+     * @param {Picture} item - The {@link Picture} item to create a {@link MessageEmbed} from.
+     * @returns {MessageEmbed} The created NASA APoD {@link MessageEmbed}.
+     */
+    static createApodEmbed(item) {
+        return new discord_js_1.MessageEmbed()
+            .setAuthor(item.title)
+            .setImage(item.img)
+            .setDescription(item.desc);
+    }
+    /**
+     * @static
+     * @async
+     * @method fetchComic
+     * @description Method to fetch XKCD comics.
+     * @param {number?} n - The number of the comic to fetch.
+     * @param {boolean?} isRandom - Are we fetching a random comic?
+     * @returns {Promise&lt;MessageEmbed>} The XKCD Comic `MessageEmbed`.
+     */
+    static async fetchComic(n, isRandom) {
+        let options = {
+            uri: Constants_1.default.rssFeedXkcd,
+            headers: [{ "Connection": "keep-alive" }],
+            json: true
+        };
+        let currentComicCount;
+        let randomComicNumber;
+        if (isRandom) {
+            currentComicCount = await this.fetchCurrentComicCount();
+            randomComicNumber = Math.floor((Math.random() * currentComicCount) + 1);
+            options = {
+                uri: `${Constants_1.default.urlXkcd}/${randomComicNumber}/info.0.json`,
+                headers: [{ "Connection": "keep-alive" }],
+                json: true
+            };
+        }
+        if (n) {
+            options = {
+                uri: `${Constants_1.default.urlXkcd}/${n}/info.0.json`,
+                headers: [{ "Connection": "keep-alive" }],
+                json: true
+            };
+        }
+        return new Promise((resolve, reject) => {
+            req(options)
+                .then((item) => {
+                resolve(this.createXkcdEmbed(item));
+            })
+                .catch(function _reject(err) {
+                reject(err);
+            });
+        });
+    }
+    /**
+     * @static
+     * @method createXkcdEmbed
+     * @description Method create a `MessageEmbed` for a specific {@link Comic}.
+     * @param {Comic} item - The {@link Comic} item to create a `MessageEmbed` from.
+     * @returns {MessageEmbed} The created XKCD Comic `MessageEmbed`.
+     */
+    static createXkcdEmbed(item) {
+        return new discord_js_1.MessageEmbed()
+            .setTitle(`xkcd: ${item.title}`)
+            .setURL(`${Constants_1.default.urlXkcd}${item.num}/`)
+            .setImage(item.img)
+            .setFooter(item.alt);
+    }
+    /**
+     * @static
+     * @async
+     * @method fetchCurrentComicCount
+     * @description Method to fetch the current amount of comics.
+     * @returns {number} The current amount of comics.
+     */
+    static async fetchCurrentComicCount() {
+        const options = {
+            uri: Constants_1.default.rssFeedXkcd,
+            headers: [{ "Connection": "keep-alive" }],
+            json: true
+        };
+        return new Promise((resolve, reject) => {
+            req(options)
+                .then((item) => {
+                resolve(item.num);
+            })
+                .catch(function _reject(err) {
+                reject(err);
+            });
+        });
+    }
+    /**
+     * @static
+     * @method pad
+     * @description Method to pad a numerical string.
+     * @param {string} n - The numerical string to pad.
+     * @returns {string} The padded string.
+     */
+    static pad(n) {
+        return (Number(n) &lt; 10) ? (`0${n}`) : n;
+    }
+    /**
+     * @static
+     * @method isNumerical
+     * @description Method to check if a string is numerical.
+     * @param {string | number} s - The string to check.
+     * @returns {boolean} Is the string numerical?
+     */
+    static isNumerical(s) {
+        return (!Number.isNaN(Number(s.toString())));
+    }
+    /**
+     * @static
+     * @method removeInvalidMessages
+     * @description Method to remove any messages that are invalid, or that have been deleted from a guild.
+     * @param {string | number} s - The string to check.
+     * @returns {boolean} Is the string numerical?
+     */
+    static async removeInvalidMessages(editableMessages, guild) {
+        const array = [];
+        await editableMessages.forEach(async (m) => {
+            if (!m.channelId)
+                return;
+            if (!m.messageId)
+                return;
+            const channel = await guild.channels.get(m.channelId);
+            const message = (channel)
+                ? await channel.messages.get(m.messageId)
+                : undefined;
+            if (message)
+                array.push(m);
+        });
+        return array;
+    }
+}
+exports.default = Util;
+
+//# sourceMappingURL=index.js.map
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<footer>
+    <img class="logo" src="https://i.imgur.com/lwqz5Co.png" style="width: 50px; height: 50px">
+    <div class="footer-text">Aeden...</div>
+</footer>
+<script>prettyPrint();</script>
+<script src="scripts/jquery.min.js"></script>
+<script src="scripts/tui-doc.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+    <script>
+        var id = '_sub'.replace(/"/g, '_');
+        var selectedApi = document.getElementById(id); // do not use jquery selector
+        var $selectedApi = $(selectedApi);
+
+        $selectedApi.removeClass('hidden');
+        $selectedApi.parent().find('.glyphicon').removeClass('glyphicon-plus').addClass('glyphicon-minus');
+        showLnbApi();
+    </script>
+
+</body>
+</html>

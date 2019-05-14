@@ -1,0 +1,23 @@
+language: node_js
+
+node_js:
+  - "lts/*"
+
+sudo: false
+
+notifications:
+  email: false
+
+cache:
+  directories:
+    - node_modules
+
+before_install:
+  - npm explore npm -g -- npm install node-gyp@latest
+
+install: npm install
+
+before_script:
+  - npm install -g gulp-cli
+
+script: gulp default
