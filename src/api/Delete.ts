@@ -38,7 +38,7 @@ export default class DELETE {
 	 *
 	 * @example Error
 	 * { success: false, message: `<error message>` }
-	 * 
+	 *
 	 * @memberof API.delete
 	 */
 	public deleteMessage: Handler = async (req: Request, res: Response): Promise<Response> => {

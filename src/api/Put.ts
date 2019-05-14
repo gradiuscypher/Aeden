@@ -50,7 +50,7 @@ export default class PUT {
 		if (!data.channelId) return res.status(200).send({ success: false, message: `No channel ID provided.` });
 		if (!data.messageId) return res.status(200).send({ success: false, message: `No message ID provided.` });
 
-		const guild: Guild | undefined = this.discordClient.guilds.get(data.guildId);	
+		const guild: Guild | undefined = this.discordClient.guilds.get(data.guildId);
 
 		if (!guild) return res.status(200).send({ success: false, message: `Guild not found.` });
 		const channel: TextChannel | undefined = await guild.channels.get(data.channelId) as TextChannel;
