@@ -27,9 +27,9 @@ export default class Util {
 		const uri: string = (isRandom) ? this.getRandomApodUri() : constants.urlApod;
 
 		const options: RequestOptions = {
-			"uri": uri,
-			"headers": [{ "Connection": "keep-alive" }],
-			"json": true
+			'uri': uri,
+			'headers': [{ 'Connection': 'keep-alive' }],
+			'json': true
 		};
 		
 		return new Promise((resolve, reject): void => {
@@ -90,9 +90,9 @@ export default class Util {
 		desc = (desc.length > 250) ? `${desc.substring(0, 250)}... [read more »](${uri})` : desc;
 
 		return {
-			"title": title,
-			"img": constants.urlApodImgBase + img,
-			"desc": desc
+			'title': title,
+			'img': constants.urlApodImgBase + img,
+			'desc': desc
 		}
 	}
 
@@ -120,40 +120,26 @@ export default class Util {
 	 * @returns {Promise<MessageEmbed>} The XKCD Comic `MessageEmbed`.
 	 */
 	public static async fetchComic(n?: number, isRandom?: boolean): Promise<MessageEmbed> {
-		let options: RequestOptions = {
-			uri: constants.rssFeedXkcd,
-			headers: [{ "Connection": "keep-alive" }],
-			json: true
-		};
-		let currentComicCount: number;
-		let randomComicNumber: number;
+		let uri = '';
 
 		if (isRandom) {
-			currentComicCount = await this.fetchCurrentComicCount();
-			randomComicNumber = Math.floor((Math.random() * currentComicCount) + 1);
-			options = {
-				uri: `${constants.urlXkcd}/${randomComicNumber}/info.0.json`,
-				headers: [{ "Connection": "keep-alive" }],
-				json: true
-			};
+			const currentComicCount = await this.fetchCurrentComicCount();
+			const randomComicNumber = Math.floor((Math.random() * currentComicCount) + 1);
+			uri = `${constants.urlXkcd}/${randomComicNumber}/info.0.json`;
 		}
 
-		if (n) {
-			options = {
-				uri: `${constants.urlXkcd}/${n}/info.0.json`,
-				headers: [{ "Connection": "keep-alive" }],
-				json: true
-			};
-		}
+		if (n) uri = `${constants.urlXkcd}/${n}/info.0.json`;
+
+		const options = {
+			'uri': uri,
+			'headers': [{ 'Connection': 'keep-alive' }],
+			'json': true
+		};
 
 		return new Promise((resolve, reject): void => {
 			req(options)
-				.then((item: Comic): void => {
-					resolve(this.createXkcdEmbed(item));
-				})
-				.catch(function _reject(err?: string | undefined): void {
-					reject(err);
-				});
+				.then((item: Comic): void => { resolve(this.createXkcdEmbed(item)); })
+				.catch(function _reject(err?: string | undefined): void { reject(err); });
 		})
 	}
 
@@ -182,7 +168,7 @@ export default class Util {
 	private static async fetchCurrentComicCount(): Promise<number> {
 		const options: RequestOptions = {
 			uri: constants.rssFeedXkcd,
-			headers: [{ "Connection": "keep-alive" }],
+			headers: [{ 'Connection': 'keep-alive' }],
 			json: true
 		};
 
@@ -228,6 +214,8 @@ export default class Util {
 	 */
 	public static async removeInvalidMessages(editableMessages: MessageData[], guild: Guild): Promise<MessageData[]> {
 		const array: MessageData[] = [];
+
+		if (!editableMessages) return editableMessages;
 
 		await editableMessages.forEach(async (m) => {
 			if (!m.channelId) return;

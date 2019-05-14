@@ -1,11 +1,7 @@
-import DELETE from './Delete';
-import GET from './Get';
-import POST from './Post';
-import PUT from './Put';
+import GuildEndPoints from './GuildEndPoints';
+import MessageEndPoints from './MessageEndPoints';
 
 export {
-	DELETE,
-	GET,
-	POST,
-	PUT
+	GuildEndPoints,
+	MessageEndPoints
 }

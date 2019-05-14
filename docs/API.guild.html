@@ -1,10 +1,8 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Source: lib/interfaces/nerd/Comic.js | Source: lib/interfaces/nerd/Comic.js</title>
+    <title>Namespace: guild | Namespace: guild</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -28,7 +26,7 @@
         
     </div>
     <div class="title">
-        <h1><a href="index.html" class="link">Source: lib/interfaces/nerd/Comic.js</a></h1>
+        <h1><a href="index.html" class="link">Namespace: guild</a></h1>
         
     </div>
     <div class="search-container" id="search-container">
@@ -45,41 +43,456 @@
 
 
 
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>"use strict";
-/**
- * @interface Comic
- * @description Interface for XKCD {@link Comic}.
- */
-/**
- * @name Comic#num
- * @description The number of the comic.
- * @type {number}
- */
-/**
- * @name Comic#title
- * @description The title of the comic.
- * @type {string}
- */
-/**
- * @name Comic#img
- * @description The comic image.
- * @type {string}
- */
-/**
- * @name Comic#alt
- * @description The comic's hilarious alt text.
- * @type {string}
- */
-Object.defineProperty(exports, "__esModule", { value: true });
-;
 
-//# sourceMappingURL=Comic.js.map
-</code></pre>
-        </article>
-    </section>
+<section>
+
+<header>
+    
+        <h2>
+            <span class="ancestors"><a href="API.html">API</a>.</span>guild</h2>
+        
+    
+</header>
+
+<article>
+    
+        <div class="container-overview">
+        
+            
+                <div class="description"><p>Guild endpoints for Aeden's API server.</p></div>
+            
+
+            
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+            
+        
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+                
+
+<dt>
+    
+        <h4 class="name" id=".getEditableMessages">
+            
+                <span class="type-signature"><span class="icon green">static</span> </span>getEditableMessages<span class="signature">()</span><span class="type-signature"> &rarr; {Handler}</span>
+                
+            
+            <div class="container-source members">
+                <code><a href="api_GuildEndPoints.js.html">api/GuildEndPoints.js</a></code>,
+                <code><a href="api_GuildEndPoints.js.html#line67">line 67</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>API endpoint to return a list of messages that Aeden can edit for a specified guild.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-returns">
+        <h5>Returns:</h5>
+        
+                
+
+
+
+<span class="param-type">Handler</span>
+
+
+
+
+
+
+
+
+            
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+        <h5>Examples</h5>
+        
+    <pre class="prettyprint"><code>Usage
+GET /api/guild/getEditableMessages/&lt;guildId></code></pre>
+
+    <pre class="prettyprint"><code>Success
+{ success: true, message: `List of editable messages is in the &lt;data> property.`, data: [] }
+{ success: true, message: `No editable messages found.`, data: [] }</code></pre>
+
+    <pre class="prettyprint"><code>Error
+{ success: false, message: `&lt;error message>`, data: [] }</code></pre>
+
+    
+
+</dd>
+
+            
+                
+
+<dt>
+    
+        <h4 class="name" id=".getEmojis">
+            
+                <span class="type-signature"><span class="icon green">static</span> </span>getEmojis<span class="signature">()</span><span class="type-signature"> &rarr; {Handler}</span>
+                
+            
+            <div class="container-source members">
+                <code><a href="api_GuildEndPoints.js.html">api/GuildEndPoints.js</a></code>,
+                <code><a href="api_GuildEndPoints.js.html#line41">line 41</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>API endpoint to return a list of custom emoji for a specified guild.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-returns">
+        <h5>Returns:</h5>
+        
+                
+
+
+
+<span class="param-type">Handler</span>
+
+
+
+
+
+
+
+
+            
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+        <h5>Examples</h5>
+        
+    <pre class="prettyprint"><code>Usage
+GET /api/guild/getEmojis/&lt;guildId></code></pre>
+
+    <pre class="prettyprint"><code>Success
+{ success: true, message: `List of emoji is in the &lt;data> property.`, data: [] }
+{ success: true, message: `No custom emoji found.`, data: [] }</code></pre>
+
+    <pre class="prettyprint"><code>Error
+{ success: false, message: `&lt;error message>` }</code></pre>
+
+    
+
+</dd>
+
+            
+                
+
+<dt>
+    
+        <h4 class="name" id=".isAedenHere">
+            
+                <span class="type-signature"><span class="icon green">static</span> </span>isAedenHere<span class="signature">()</span><span class="type-signature"> &rarr; {Handler}</span>
+                
+            
+            <div class="container-source members">
+                <code><a href="api_GuildEndPoints.js.html">api/GuildEndPoints.js</a></code>,
+                <code><a href="api_GuildEndPoints.js.html#line13">line 13</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>API endpoint to return True/False based on Aeden's presence within a specified Discord Guild/Server.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-returns">
+        <h5>Returns:</h5>
+        
+                
+
+
+
+<span class="param-type">Handler</span>
+
+
+
+
+
+
+
+
+            
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+        <h5>Examples</h5>
+        
+    <pre class="prettyprint"><code>Usage
+GET /api/guild/isAedenHere/&lt;guildId></code></pre>
+
+    <pre class="prettyprint"><code>Success
+{ success: true, presence: true }
+{ success: true, presence: false }</code></pre>
+
+    <pre class="prettyprint"><code>Error
+{ success: false, message: `&lt;error message>`, data: [] }</code></pre>
+
+    
+
+</dd>
+
+            </dl>
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 
@@ -96,7 +509,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 <script src="scripts/linenumber.js"></script>
 
     <script>
-        var id = '_sub'.replace(/"/g, '_');
+        var id = 'API.guild_sub'.replace(/"/g, '_');
         var selectedApi = document.getElementById(id); // do not use jquery selector
         var $selectedApi = $(selectedApi);
 

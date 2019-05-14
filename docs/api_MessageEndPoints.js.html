@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Source: lib/interfaces/nerd/Comic.js | Source: lib/interfaces/nerd/Comic.js</title>
+    <title>Source: api/MessageEndPoints.js | Source: api/MessageEndPoints.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -28,7 +28,7 @@
         
     </div>
     <div class="title">
-        <h1><a href="index.html" class="link">Source: lib/interfaces/nerd/Comic.js</a></h1>
+        <h1><a href="index.html" class="link">Source: api/MessageEndPoints.js</a></h1>
         
     </div>
     <div class="search-container" id="search-container">
@@ -49,34 +49,161 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>"use strict";
-/**
- * @interface Comic
- * @description Interface for XKCD {@link Comic}.
- */
-/**
- * @name Comic#num
- * @description The number of the comic.
- * @type {number}
- */
-/**
- * @name Comic#title
- * @description The title of the comic.
- * @type {string}
- */
-/**
- * @name Comic#img
- * @description The comic image.
- * @type {string}
- */
-/**
- * @name Comic#alt
- * @description The comic's hilarious alt text.
- * @type {string}
- */
 Object.defineProperty(exports, "__esModule", { value: true });
-;
+/**
+ * @namespace message
+ * @description Message endpoints for Aeden's API server.
+ *
+ * @memberof API
+ */
+class MessageEndPoints {
+    constructor(client) {
+        /**
+         * @method deleteMessage
+         * @description API endpoint to delete a message within a guild channel.
+         * @returns {Handler}
+         *
+         * @example Usage
+         * PUT /api/message/deleteMessage
+         *
+         * @example Body`
+         * {
+         *	"guildId": "248917791627804673",
+         *	"channelId": "351408294952304641",
+         *	"messageId": "577525490739445770"
+         * }
+         *
+         * @example Success
+         * { success: true, message: `Message deleted.` }
+         *
+         * @example Error
+         * { success: false, message: `&lt;error message>` }
+         *
+         * @memberof API.message
+         */
+        this.deleteMessage = async (req, res) => {
+            const data = req.body;
+            if (!data.guildId)
+                return res.status(400).send({ success: false, message: `No guild ID provided.` });
+            if (!data.channelId)
+                return res.status(400).send({ success: false, message: `No channel ID provided.` });
+            if (!data.messageId)
+                return res.status(400).send({ success: false, message: `No message ID provided.` });
+            const guild = this.discordClient.guilds.get(data.guildId);
+            if (!guild)
+                return res.status(404).send({ success: false, message: `Guild not found.` });
+            const channel = await guild.channels.get(data.channelId);
+            if (!channel)
+                return res.status(404).send({ success: false, message: `Channel not found.` });
+            const message = await channel.messages.get(data.messageId);
+            if (!message)
+                return res.status(404).send({ success: false, message: `Message not found.` });
+            message.delete();
+            return res.status(200).send({ success: true, message: `Message deleted.` });
+        };
+        /**
+         * @method createMessage
+         * @description API endpoint to create a message within a guild channel.
+         * @returns {Handler}
+         *
+         * @example Usage
+         * POST /api/message/createMessage
+         *
+         * @example Body
+         * {
+         *	"guildId": "248917791627804673",
+         *	"channelId": "351408294952304641",
+         *	"messageId": "577525490739445770",
+         *	"messageTitle": "Test Message Title",
+         *	"messageContent": "Test message content.",
+         *	"hasEmbed": false
+         * }
+         *
+         * @example Success
+         * { success: true, message: `Message created.` }
+         *
+         * @example Errors
+         * { success: false, message: `&lt;error message>` }
+         *
+         * @memberof API.message
+         */
+        this.createMessage = async (req, res) => {
+            const data = req.body;
+            if (!data.guildId)
+                return res.status(400).send({ success: false, message: `No guild ID provided.` });
+            if (!data.channelId)
+                return res.status(400).send({ success: false, message: `No channel ID provided.` });
+            const guild = this.discordClient.guilds.get(data.guildId);
+            const guildStorage = await this.discordClient.storage.guilds.get(data.guildId);
+            if (!guild)
+                return res.status(404).send({ success: false, message: `Guild not found.` });
+            const channel = await guild.channels.get(data.channelId);
+            if (!channel)
+                return res.status(404).send({ success: false, message: `Channel not found.` });
+            if (!guildStorage)
+                return res.status(500).send({ success: false, message: `There is no guild storage present for the specified guild.` });
+            let editableMessages = await guildStorage.get(`EDITABLE_MESSAGES`);
+            const message = await channel.send(data.messageContent);
+            const editableMessage = { guildId: data.guildId, messageId: message.id, channelId: channel.id, messageTitle: data.messageTitle };
+            if (editableMessages)
+                editableMessages.push(editableMessage);
+            else
+                editableMessages = [editableMessage];
+            await guildStorage.set(`EDITABLE_MESSAGES`, editableMessages);
+            return res.status(200).send({ success: true, message: `Message created.` });
+        };
+        /**
+         * @method updateMessage
+         * @description API endpoint to update a message within a guild channel.
+         * @returns {Handler}
+         *
+         * @example Usage
+         * PUT /api/message/updateMessage
+         *
+         * @example Body
+         * {
+         *	"guildId": "248917791627804673",
+         *	"channelId": "351408294952304641",
+         *	"messageId": "577525490739445770",
+         *	"messageTitle": "Test Message Title",
+         *	"messageContent": "Test message content.",
+         *	"hasEmbed": false
+         * }
+         *
+         * @example Success
+         * { success: true, message: `Message updated.` }
+         *
+         * @example Error
+         * { success: false, message: `&lt;error message>` }
+         *
+         * @memberof API.message
+         */
+        this.updateMessage = async (req, res) => {
+            const data = req.body;
+            if (!data.guildId)
+                return res.status(400).send({ success: false, message: `No guild ID provided.` });
+            if (!data.channelId)
+                return res.status(400).send({ success: false, message: `No channel ID provided.` });
+            if (!data.messageId)
+                return res.status(400).send({ success: false, message: `No message ID provided.` });
+            const guild = this.discordClient.guilds.get(data.guildId);
+            if (!guild)
+                return res.status(404).send({ success: false, message: `Guild not found.` });
+            const channel = await guild.channels.get(data.channelId);
+            if (!channel)
+                return res.status(404).send({ success: false, message: `Channel not found.` });
+            const message = await channel.messages.get(data.messageId);
+            if (!message)
+                return res.status(404).send({ success: false, message: `Message not found.` });
+            message.edit(data.messageContent);
+            return res.status(200).send({ success: true, message: `Message updated.` });
+        };
+        this.discordClient = client;
+    }
+}
+exports.default = MessageEndPoints;
 
-//# sourceMappingURL=Comic.js.map
+//# sourceMappingURL=MessageEndPoints.js.map
 </code></pre>
         </article>
     </section>

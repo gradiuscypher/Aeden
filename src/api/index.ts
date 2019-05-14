@@ -1,5 +1,5 @@
 import { AedenDiscordClient } from '../client/AedenDiscordClient';
-import { GET, POST, PUT } from './EndPoints';
+import { GuildEndPoints, MessageEndPoints } from './EndPoints';
 
 import EndPoints from '../lib/enums/EndPoints';
 import Method from '../lib/enums/Method';
@@ -12,39 +12,37 @@ import Route from '../lib/interfaces/Route';
 export default class API {
 	private discordClient: AedenDiscordClient;
 
-	private GET: GET;
-	private POST: POST;
-	private PUT: PUT;
+	private guild: GuildEndPoints;
+	private message: MessageEndPoints;
 
 	public endpoints: Route[];
 
 	public constructor(client: AedenDiscordClient) {
 		this.discordClient = client;
 
-		this.GET = new GET(this.discordClient);
-		this.POST = new POST(this.discordClient);
-		this.PUT = new PUT(this.discordClient);
+		this.guild = new GuildEndPoints(this.discordClient);
+		this.message = new MessageEndPoints(this.discordClient);
 
 		this.endpoints = [{
 			path: EndPoints.isAedenHere,
 			method: Method.GET,
-			handler: this.GET.isAedenHere
+			handler: this.guild.isAedenHere
 		}, {
 			path: EndPoints.getEditableMessages,
 			method: Method.GET,
-			handler: this.GET.getEditableMessages
+			handler: this.guild.getEditableMessages
 		}, {
 			path: EndPoints.getEmojis,
 			method: Method.GET,
-			handler: this.GET.getEmojis
+			handler: this.guild.getEmojis
 		}, {
 			path: EndPoints.createMessage,
 			method: Method.POST,
-			handler: this.POST.createMessage
+			handler: this.message.createMessage
 		}, {
 			path: EndPoints.updateMessage,
 			method: Method.PUT,
-			handler: this.PUT.updateMessage
+			handler: this.message.updateMessage
 		}];
 	}
 }
