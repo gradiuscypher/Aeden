@@ -39,8 +39,8 @@ export default class GET {
 	public isAedenHere: Handler = async (req: Request, res: Response): Promise<Response> => {
 		const guild: Guild | undefined = this.discordClient.guilds.get(req.params.id);
 
-		if (!this.discordClient.user) return res.status(200).send({ success: false, message: `Bot client user not found.` });
-		if (!guild) return res.status(200).send({ success: false, message: `Guild not found.` });
+		if (!this.discordClient.user) return res.status(500).send({ success: false, message: `Bot client user not found.` });
+		if (!guild) return res.status(404).send({ success: false, message: `Guild not found.` });
 
 		const isHere: GuildMember | undefined = (guild as Guild).members.get(this.discordClient.user.id);
 

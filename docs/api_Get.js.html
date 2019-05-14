@@ -80,9 +80,9 @@ class GET {
         this.isAedenHere = async (req, res) => {
             const guild = this.discordClient.guilds.get(req.params.id);
             if (!this.discordClient.user)
-                return res.status(200).send({ success: false, message: `Bot client user not found.` });
+                return res.status(500).send({ success: false, message: `Bot client user not found.` });
             if (!guild)
-                return res.status(200).send({ success: false, message: `Guild not found.` });
+                return res.status(404).send({ success: false, message: `Guild not found.` });
             const isHere = guild.members.get(this.discordClient.user.id);
             return (isHere instanceof discord_js_1.GuildMember)
                 ? res.status(200).send({ success: true, presence: true })

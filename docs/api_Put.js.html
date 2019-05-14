@@ -87,20 +87,20 @@ class PUT {
         this.updateMessage = async (req, res) => {
             const data = req.body;
             if (!data.guildId)
-                return res.status(200).send({ success: false, message: `No guild ID provided.` });
+                return res.status(400).send({ success: false, message: `No guild ID provided.` });
             if (!data.channelId)
-                return res.status(200).send({ success: false, message: `No channel ID provided.` });
+                return res.status(400).send({ success: false, message: `No channel ID provided.` });
             if (!data.messageId)
-                return res.status(200).send({ success: false, message: `No message ID provided.` });
+                return res.status(400).send({ success: false, message: `No message ID provided.` });
             const guild = this.discordClient.guilds.get(data.guildId);
             if (!guild)
-                return res.status(200).send({ success: false, message: `Guild not found.` });
+                return res.status(404).send({ success: false, message: `Guild not found.` });
             const channel = await guild.channels.get(data.channelId);
             if (!channel)
-                return res.status(200).send({ success: false, message: `Channel not found.` });
+                return res.status(404).send({ success: false, message: `Channel not found.` });
             const message = await channel.messages.get(data.messageId);
             if (!message)
-                return res.status(200).send({ success: false, message: `Message not found.` });
+                return res.status(404).send({ success: false, message: `Message not found.` });
             message.edit(data.messageContent);
             return res.status(200).send({ success: true, message: `Message updated.` });
         };
