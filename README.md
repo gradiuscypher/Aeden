@@ -1,5 +1,5 @@
 # Aeden
-[![Build Status](https://travis-ci.org/kata-codes/Aeden.svg?branch=master)](https://travis-ci.org/kata-codes/Aeden) [![CodeFactor](https://www.codefactor.io/repository/github/kata-codes/aeden/badge)](https://www.codefactor.io/repository/github/kata-codes/aeden)  [![Read the docs](https://img.shields.io/badge/read%20the-docs-428bca.svg)](https://kata-codes.github.io/Aeden/) [![Discord](https://discordapp.com/api/guilds/529310206639996928/embed.png)](https://discord.gg/q4HFEm2)
+[![Build Status](https://travis-ci.org/kata-codes/Aeden.svg?branch=master)](https://travis-ci.org/kata-codes/Aeden) [![Maintainability](https://api.codeclimate.com/v1/badges/3a6bb944bc4c922b8fe7/maintainability)](https://codeclimate.com/github/kata-codes/Aeden/maintainability) [![CodeFactor](https://www.codefactor.io/repository/github/kata-codes/aeden/badge)](https://www.codefactor.io/repository/github/kata-codes/aeden)  [![Read the docs](https://img.shields.io/badge/read%20the-docs-428bca.svg)](https://kata-codes.github.io/Aeden/) [![Discord](https://discordapp.com/api/guilds/529310206639996928/embed.png)](https://discord.gg/q4HFEm2)
 
 Client for Aeden, including both an API server and Discord bot client.  Currently a personal project and assists one server.  Once functionality has been tested and confirmed, will look to make Aeden more dynamic.
 
