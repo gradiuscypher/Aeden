@@ -23,30 +23,11 @@ export default class API {
 		this.guild = new GuildEndPoints(this.discordClient);
 		this.message = new MessageEndPoints(this.discordClient);
 
-		this.endpoints = [{
-			path: EndPoints.isAedenHere,
-			method: Method.GET,
-			handler: this.guild.isAedenHere
-		}, {
-			path: EndPoints.getEditableMessages,
-			method: Method.GET,
-			handler: this.guild.getEditableMessages
-		}, {
-			path: EndPoints.getEmojis,
-			method: Method.GET,
-			handler: this.guild.getEmojis
-		}, {
-			path: EndPoints.createMessage,
-			method: Method.POST,
-			handler: this.message.createMessage
-		}, {
-			path: EndPoints.updateMessage,
-			method: Method.PUT,
-			handler: this.message.updateMessage
-		}, {
-			path: EndPoints.deleteMessage,
-			method: Method.DELETE,
-			handler: this.message.deleteMessage
-		}];
+		this.endpoints.push({ path: EndPoints.isAedenHere, method: Method.GET, handler: this.guild.isAedenHere });
+		this.endpoints.push({ path: EndPoints.getEditableMessages, method: Method.GET, handler: this.guild.getEditableMessages });
+		this.endpoints.push({ path: EndPoints.getEmojis, method: Method.GET, handler: this.guild.getEmojis });
+		this.endpoints.push({ path: EndPoints.createMessage, method: Method.POST, handler: this.message.createMessage });
+		this.endpoints.push({ path: EndPoints.updateMessage, method: Method.PUT, handler: this.message.updateMessage });
+		this.endpoints.push({ path: EndPoints.deleteMessage, method: Method.DELETE, handler: this.message.deleteMessage });
 	}
 }
