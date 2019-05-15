@@ -83,12 +83,19 @@ class MessageEndPoints {
          */
         this.deleteMessage = async (req, res) => {
             const data = req.body;
+            let error = false;
+            let errorMessage = '';
             if (!data.guildId)
-                return res.status(400).send({ success: false, message: `No guild ID provided.` });
+                error = true;
+            errorMessage = `No guild ID provided.\n`;
             if (!data.channelId)
-                return res.status(400).send({ success: false, message: `No channel ID provided.` });
+                error = true;
+            errorMessage = `No channel ID provided\n.`;
             if (!data.messageId)
-                return res.status(400).send({ success: false, message: `No message ID provided.` });
+                error = true;
+            errorMessage = `No message ID provided\n.`;
+            if (error)
+                return res.status(404).send({ success: false, message: errorMessage });
             const guild = this.discordClient.guilds.get(data.guildId);
             if (!guild)
                 return res.status(404).send({ success: false, message: `Guild not found.` });
