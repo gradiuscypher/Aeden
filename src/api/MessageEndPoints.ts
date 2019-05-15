@@ -42,19 +42,24 @@ export default class MessageEndPoints {
 	 */
 	public deleteMessage: Handler = async (req: Request, res: Response): Promise<Response> => {
 		const data: MessageData = req.body;
+		let error = false;
+		let errorMessage = '';
 
-		if (!data.guildId) return res.status(400).send({ success: false, message: `No guild ID provided.` });
-		if (!data.channelId) return res.status(400).send({ success: false, message: `No channel ID provided.` });
-		if (!data.messageId) return res.status(400).send({ success: false, message: `No message ID provided.` });
+		if (!data.guildId) error = true; errorMessage = `No guild ID provided.\n`;
+		if (!data.channelId) error = true; errorMessage = `No channel ID provided\n.`
+		if (!data.messageId) error = true; errorMessage = `No message ID provided\n.`
+
+		if (error)
+			return res.status(404).send({ success: false, message: errorMessage });
 
 		const guild: Guild | undefined = this.discordClient.guilds.get(data.guildId);
 
 		if (!guild) return res.status(404).send({ success: false, message: `Guild not found.` });
 
-		const channel: TextChannel | undefined = await guild.channels.get(data.channelId) as TextChannel;
+		const channel: TextChannel | undefined = await guild.channels.get(data.channelId!) as TextChannel;
 		
 		if (!channel) return res.status(404).send({ success: false, message: `Channel not found.` });
-		const message: Message | undefined = await channel.messages.get(data.messageId) as Message;
+		const message: Message | undefined = await channel.messages.get(data.messageId!) as Message;
 
 		if (!message) return res.status(404).send({ success: false, message: `Message not found.` });
 		message.delete();

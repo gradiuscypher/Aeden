@@ -43,6 +43,10 @@ export default class API {
 			path: EndPoints.updateMessage,
 			method: Method.PUT,
 			handler: this.message.updateMessage
+		}, {
+			path: EndPoints.deleteMessage,
+			method: Method.DELETE,
+			handler: this.message.deleteMessage
 		}];
 	}
 }

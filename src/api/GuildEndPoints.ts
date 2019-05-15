@@ -101,8 +101,8 @@ export default class GuildEndPoints {
 			? await guildStorage.get(`EDITABLE_MESSAGES`)
 			: undefined;
 		
-		if (!guild) return res.status(200).send({ success: false, message: `Guild not found.`, data: [] });
-		if (!guildStorage) return res.status(200).send({ success: false, message: `GuildStorage not found.`, data: [] });
+		if (!guild|| !guildStorage)
+			return res.status(200).send({ success: false, message: `Guild not found. and/or GuildStorage not found.`, data: [] });
 
 		editableMessages = await Util.removeInvalidMessages(editableMessages, guild);
 

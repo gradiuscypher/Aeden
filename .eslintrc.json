@@ -25,6 +25,7 @@
 	"rules": {
 		"@typescript-eslint/explicit-function-return-type": ["warn", { "allowExpressions": true }],
 		"@typescript-eslint/indent": ["error", "tab"],
+		"@typescript-eslint/no-non-null-assertion": "off",
 		"class-methods-use-this": "off",
 		"indent": "off",
 		"lines-between-class-members": "off",

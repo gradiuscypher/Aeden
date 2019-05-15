@@ -14,6 +14,7 @@ enum EndPoints {
 
 	// message endpoints
 	createMessage = '/api/message/createMessage',
+	deleteMessage = '/api/message/deleteMessage',
 	updateMessage = '/api/message/updateMessage'
 };
 
