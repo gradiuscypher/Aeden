@@ -45,20 +45,12 @@ export default class Handlers {
 	 * @description Handler for Cross-Origin Resource Sharing (CORS).
 	 * @param {Router} router The {Router} to apply Cross-Origin Resource Sharing to.
 	 */
-	public Cors = (router: Router): void  => {
-		router.use(cors({
-			methods: [
-				Method.DELETE,
-				Method.GET,
-				Method.POST,
-				Method.PUT
-			],
-			allowedHeaders: [
-				'Accept',
-				'Content-Type',
-				'Origin',
-				'X-Requested-With'
-			]})
+	public Cors = (router: Router): void => {
+		router.use(
+			cors({
+				methods: [Method.DELETE, Method.GET, Method.POST, Method.PUT],
+				allowedHeaders: ['Accept', 'Content-Type', 'Origin', 'X-Requested-With']
+			})
 		);
 	};
 
@@ -73,15 +65,14 @@ export default class Handlers {
 			denys: [],
 			allows: this.apiConfig.whitelist,
 			forceConnectionAddress: false,
-			log: (clientIp: string, access: string) => {
-				if(!access)
-					this.logger.log(`${clientIp} denied.`);
+			log: (clientIp: string, access: string): void => {
+				if (!access) this.logger.log(`${clientIp} denied.`);
 			},
 			statusCode: 401,
 			redirectTo: '',
 			message: 'Unauthorized access...'
-		}
+		};
 
 		router.use(AccessControl(options));
-	}
+	};
 }

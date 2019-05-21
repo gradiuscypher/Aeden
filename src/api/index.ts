@@ -1,9 +1,9 @@
-import { AedenDiscordClient } from '../client/AedenDiscordClient';
-import { GuildEndPoints, MessageEndPoints } from './EndPoints';
-
+import AedenDiscordClient from '../client/AedenDiscordClient';
 import EndPoints from '../lib/enums/EndPoints';
 import Method from '../lib/enums/Method';
 import Route from '../lib/interfaces/Route';
+
+import { GuildEndPoints, MessageEndPoints } from './EndPoints';
 
 /**
  * @namespace API
@@ -22,12 +22,37 @@ export default class API {
 
 		this.guild = new GuildEndPoints(this.discordClient);
 		this.message = new MessageEndPoints(this.discordClient);
+		this.endpoints = new Array(6);
 
-		this.endpoints.push({ path: EndPoints.isAedenHere, method: Method.GET, handler: this.guild.isAedenHere });
-		this.endpoints.push({ path: EndPoints.getEditableMessages, method: Method.GET, handler: this.guild.getEditableMessages });
-		this.endpoints.push({ path: EndPoints.getEmojis, method: Method.GET, handler: this.guild.getEmojis });
-		this.endpoints.push({ path: EndPoints.createMessage, method: Method.POST, handler: this.message.createMessage });
-		this.endpoints.push({ path: EndPoints.updateMessage, method: Method.PUT, handler: this.message.updateMessage });
-		this.endpoints.push({ path: EndPoints.deleteMessage, method: Method.DELETE, handler: this.message.deleteMessage });
+		this.endpoints.push({
+			path: EndPoints.isAedenHere,
+			method: Method.GET,
+			handler: this.guild.isAedenHere
+		});
+		this.endpoints.push({
+			path: EndPoints.getEditableMessages,
+			method: Method.GET,
+			handler: this.guild.getEditableMessages
+		});
+		this.endpoints.push({
+			path: EndPoints.getEmojis,
+			method: Method.GET,
+			handler: this.guild.getEmojis
+		});
+		this.endpoints.push({
+			path: EndPoints.createMessage,
+			method: Method.POST,
+			handler: this.message.createMessage
+		});
+		this.endpoints.push({
+			path: EndPoints.updateMessage,
+			method: Method.PUT,
+			handler: this.message.updateMessage
+		});
+		this.endpoints.push({
+			path: EndPoints.deleteMessage,
+			method: Method.DELETE,
+			handler: this.message.deleteMessage
+		});
 	}
 }

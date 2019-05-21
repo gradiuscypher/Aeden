@@ -20,6 +20,6 @@
 
 export default interface RequestOptions {
 	uri: string;
-	headers: {[key: string]: string}[];
+	headers: { [key: string]: string }[];
 	json: boolean;
-};
+}

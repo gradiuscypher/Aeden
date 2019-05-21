@@ -68,11 +68,11 @@ class Util {
      * @returns {Promise&lt;MessageEmbed>} The APoD {@link MessageEmbed}.
      */
     static async fetchApod(isRandom) {
-        const uri = (isRandom) ? this.getRandomApodUri() : Constants_1.default.urlApod;
+        const uri = isRandom ? this.getRandomApodUri() : Constants_1.default.urlApod;
         const options = {
-            'uri': uri,
-            'headers': [{ 'Connection': 'keep-alive' }],
-            'json': true
+            uri: uri,
+            headers: [{ Connection: 'keep-alive' }],
+            json: true
         };
         return new Promise((resolve, reject) => {
             req(options)
@@ -94,7 +94,8 @@ class Util {
     static getRandomApodUri() {
         const now = new Date();
         const min = new Date(1995, 5, 16).getTime();
-        const max = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 18, 59, 59, 999).getTime() - (5 * 60 * 60 * 1000);
+        const max = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 18, 59, 59, 999).getTime() -
+            5 * 60 * 60 * 1000;
         const mMin = new Date(1995, 5, 17).getTime();
         const mMax = new Date(1995, 5, 19, 23, 59, 59, 999).getTime();
         let rDate = Math.round(min + Math.random() * (max - min));
@@ -116,18 +117,25 @@ class Util {
      * @returns {Picture} The processed {@link Picture}.
      */
     static processApod($, uri) {
-        const title = $('center + center > b:first-child').text().trim();
+        const title = $('center + center > b:first-child')
+            .text()
+            .trim();
         const img = $('img').attr('src');
-        let desc = $('center + center + p').text().trim()
+        let desc = $('center + center + p')
+            .text()
+            .trim()
             .replace(/(\s)+/g, ' ')
             .replace(/(\r\n|\n|\r)/gm, '')
             .replace(/(Explanation:)/, '');
-        desc = (desc === '') ? '*There is no description for this content.*' : desc;
-        desc = (desc.length > 250) ? `${desc.substring(0, 250)}... [read more »](${uri})` : desc;
+        desc = desc === '' ? '*There is no description for this content.*' : desc;
+        desc =
+            desc.length > 250
+                ? `${desc.substring(0, 250)}... [read more »](${uri})`
+                : desc;
         return {
-            'title': title,
-            'img': Constants_1.default.urlApodImgBase + img,
-            'desc': desc
+            title: title,
+            img: Constants_1.default.urlApodImgBase + img,
+            desc: desc
         };
     }
     /**
@@ -156,20 +164,24 @@ class Util {
         let uri = '';
         if (isRandom) {
             const currentComicCount = await this.fetchCurrentComicCount();
-            const randomComicNumber = Math.floor((Math.random() * currentComicCount) + 1);
+            const randomComicNumber = Math.floor(Math.random() * currentComicCount + 1);
             uri = `${Constants_1.default.urlXkcd}/${randomComicNumber}/info.0.json`;
         }
         if (n)
             uri = `${Constants_1.default.urlXkcd}/${n}/info.0.json`;
         const options = {
-            'uri': uri,
-            'headers': [{ 'Connection': 'keep-alive' }],
-            'json': true
+            uri: uri,
+            headers: [{ Connection: 'keep-alive' }],
+            json: true
         };
         return new Promise((resolve, reject) => {
             req(options)
-                .then((item) => { resolve(this.createXkcdEmbed(item)); })
-                .catch(function _reject(err) { reject(err); });
+                .then((item) => {
+                resolve(this.createXkcdEmbed(item));
+            })
+                .catch(function _reject(err) {
+                reject(err);
+            });
         });
     }
     /**
@@ -196,7 +208,7 @@ class Util {
     static async fetchCurrentComicCount() {
         const options = {
             uri: Constants_1.default.rssFeedXkcd,
-            headers: [{ 'Connection': 'keep-alive' }],
+            headers: [{ Connection: 'keep-alive' }],
             json: true
         };
         return new Promise((resolve, reject) => {
@@ -217,7 +229,7 @@ class Util {
      * @returns {string} The padded string.
      */
     static pad(n) {
-        return (Number(n) &lt; 10) ? (`0${n}`) : n;
+        return Number(n) &lt; 10 ? `0${n}` : n;
     }
     /**
      * @static
@@ -227,7 +239,7 @@ class Util {
      * @returns {boolean} Is the string numerical?
      */
     static isNumerical(s) {
-        return (!Number.isNaN(Number(s.toString())));
+        return !Number.isNaN(Number(s.toString()));
     }
     /**
      * @static
@@ -245,8 +257,8 @@ class Util {
                 return;
             if (!m.messageId)
                 return;
-            const channel = await guild.channels.get(m.channelId);
-            const message = (channel)
+            const channel = (await guild.channels.get(m.channelId));
+            const message = channel
                 ? await channel.messages.get(m.messageId)
                 : undefined;
             if (message)

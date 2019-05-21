@@ -11,6 +11,6 @@ enum Statuses {
 	offline = 'offline',
 	idle = 'idle',
 	dnd = 'do not disturb'
-};
+}
 
 export default Statuses;

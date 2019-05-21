@@ -29,4 +29,4 @@ export default interface MessageData {
 	messageContent?: string;
 	hasEmbed?: boolean;
 	embed?: MessageEmbed;
-};
+}

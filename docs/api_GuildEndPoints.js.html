@@ -50,8 +50,8 @@
         <article>
             <pre class="prettyprint source linenums"><code>"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const discord_js_1 = require("discord.js");
 const utils_1 = require("../utils");
+const discord_js_1 = require("discord.js");
 /**
  * @namespace guild
  * @description Guild endpoints for Aeden's API server.
@@ -80,11 +80,15 @@ class GuildEndPoints {
         this.isAedenHere = async (req, res) => {
             const guild = this.discordClient.guilds.get(req.params.id);
             if (!this.discordClient.user)
-                return res.status(500).send({ success: false, message: `Bot client user not found.` });
+                return res
+                    .status(500)
+                    .send({ success: false, message: `Bot client user not found.` });
             if (!guild)
-                return res.status(404).send({ success: false, message: `Guild not found.` });
+                return res
+                    .status(404)
+                    .send({ success: false, message: `Guild not found.` });
             const isHere = guild.members.get(this.discordClient.user.id);
-            return (isHere instanceof discord_js_1.GuildMember)
+            return isHere instanceof discord_js_1.GuildMember
                 ? res.status(200).send({ success: true, presence: true })
                 : res.status(200).send({ success: true, presence: false });
         };
@@ -108,11 +112,19 @@ class GuildEndPoints {
         this.getEmojis = async (req, res) => {
             const guild = await this.discordClient.guilds.get(req.params.id);
             if (!guild)
-                return res.status(200).send({ success: false, message: `Guild not found.` });
+                return res
+                    .status(200)
+                    .send({ success: false, message: `Guild not found.` });
             const emojiList = guild.emojis;
             if (emojiList.size > 0)
-                return res.status(200).send({ success: true, message: `List of emoji is in the &lt;data> property.`, data: emojiList });
-            return res.status(200).send({ success: true, message: `No custom emoji found.`, data: [] });
+                return res.status(200).send({
+                    success: true,
+                    message: `List of emoji is in the &lt;data> property.`,
+                    data: emojiList
+                });
+            return res
+                .status(200)
+                .send({ success: true, message: `No custom emoji found.`, data: [] });
         };
         /**
          * @method getEditableMessages
@@ -134,17 +146,29 @@ class GuildEndPoints {
         this.getEditableMessages = async (req, res) => {
             const guild = await this.discordClient.guilds.get(req.params.id);
             const guildStorage = await this.discordClient.storage.guilds.get(req.params.id);
-            let editableMessages = (guildStorage)
+            let editableMessages = guildStorage
                 ? await guildStorage.get(`EDITABLE_MESSAGES`)
                 : undefined;
             if (!guild || !guildStorage)
-                return res.status(200).send({ success: false, message: `Guild not found. and/or GuildStorage not found.`, data: [] });
+                return res.status(200).send({
+                    success: false,
+                    message: `Guild not found. and/or GuildStorage not found.`,
+                    data: []
+                });
             editableMessages = await utils_1.default.removeInvalidMessages(editableMessages, guild);
             if (editableMessages)
                 await guildStorage.set(`EDITABLE_MESSAGES`, editableMessages);
-            return (editableMessages)
-                ? res.status(200).send({ success: true, message: `List of editable messages is in the &lt;data> property.`, data: editableMessages })
-                : res.status(200).send({ success: true, message: `No editable messages found.`, data: [] });
+            return editableMessages
+                ? res.status(200).send({
+                    success: true,
+                    message: `List of editable messages is in the &lt;data> property.`,
+                    data: editableMessages
+                })
+                : res.status(200).send({
+                    success: true,
+                    message: `No editable messages found.`,
+                    data: []
+                });
         };
         this.discordClient = client;
     }

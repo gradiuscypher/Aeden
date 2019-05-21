@@ -50,9 +50,9 @@
         <article>
             <pre class="prettyprint source linenums"><code>"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const EndPoints_1 = require("./EndPoints");
-const EndPoints_2 = require("../lib/enums/EndPoints");
+const EndPoints_1 = require("../lib/enums/EndPoints");
 const Method_1 = require("../lib/enums/Method");
+const EndPoints_2 = require("./EndPoints");
 /**
  * @namespace API
  * @description This class represents an instance of {@link Route Routes}, all of the API server endpoints.
@@ -60,33 +60,39 @@ const Method_1 = require("../lib/enums/Method");
 class API {
     constructor(client) {
         this.discordClient = client;
-        this.guild = new EndPoints_1.GuildEndPoints(this.discordClient);
-        this.message = new EndPoints_1.MessageEndPoints(this.discordClient);
-        this.endpoints = [{
-                path: EndPoints_2.default.isAedenHere,
-                method: Method_1.default.GET,
-                handler: this.guild.isAedenHere
-            }, {
-                path: EndPoints_2.default.getEditableMessages,
-                method: Method_1.default.GET,
-                handler: this.guild.getEditableMessages
-            }, {
-                path: EndPoints_2.default.getEmojis,
-                method: Method_1.default.GET,
-                handler: this.guild.getEmojis
-            }, {
-                path: EndPoints_2.default.createMessage,
-                method: Method_1.default.POST,
-                handler: this.message.createMessage
-            }, {
-                path: EndPoints_2.default.updateMessage,
-                method: Method_1.default.PUT,
-                handler: this.message.updateMessage
-            }, {
-                path: EndPoints_2.default.deleteMessage,
-                method: Method_1.default.DELETE,
-                handler: this.message.deleteMessage
-            }];
+        this.guild = new EndPoints_2.GuildEndPoints(this.discordClient);
+        this.message = new EndPoints_2.MessageEndPoints(this.discordClient);
+        this.endpoints = new Array(6);
+        this.endpoints.push({
+            path: EndPoints_1.default.isAedenHere,
+            method: Method_1.default.GET,
+            handler: this.guild.isAedenHere
+        });
+        this.endpoints.push({
+            path: EndPoints_1.default.getEditableMessages,
+            method: Method_1.default.GET,
+            handler: this.guild.getEditableMessages
+        });
+        this.endpoints.push({
+            path: EndPoints_1.default.getEmojis,
+            method: Method_1.default.GET,
+            handler: this.guild.getEmojis
+        });
+        this.endpoints.push({
+            path: EndPoints_1.default.createMessage,
+            method: Method_1.default.POST,
+            handler: this.message.createMessage
+        });
+        this.endpoints.push({
+            path: EndPoints_1.default.updateMessage,
+            method: Method_1.default.PUT,
+            handler: this.message.updateMessage
+        });
+        this.endpoints.push({
+            path: EndPoints_1.default.deleteMessage,
+            method: Method_1.default.DELETE,
+            handler: this.message.deleteMessage
+        });
     }
 }
 exports.default = API;

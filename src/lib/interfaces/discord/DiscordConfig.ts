@@ -36,4 +36,4 @@ export default interface DiscordConfig {
 	name: string;
 	version: string;
 	status: string;
-};
+}

@@ -1,8 +1,9 @@
-import { AedenDiscordClient } from '../client/AedenDiscordClient';
+import AedenDiscordClient from '../client/AedenDiscordClient';
+import MessageData from '../lib/interfaces/api/MessageData';
+
 import { Handler, Request, Response } from 'express';
 import { Guild, TextChannel, Message } from 'discord.js';
 import { GuildStorage } from '@yamdbf/core';
-import MessageData from '../lib/interfaces/api/MessageData';
 
 /**
  * @namespace message
@@ -40,32 +41,63 @@ export default class MessageEndPoints {
 	 *
 	 * @memberof API.message
 	 */
-	public deleteMessage: Handler = async (req: Request, res: Response): Promise<Response> => {
+	public deleteMessage: Handler = async (
+		req: Request,
+		res: Response
+	): Promise<Response> => {
 		const data: MessageData = req.body;
 		let error = false;
 		let errorMessage = '';
 
-		if (!data.guildId) error = true; errorMessage = `No guild ID provided.\n`;
-		if (!data.channelId) error = true; errorMessage = `No channel ID provided\n.`
-		if (!data.messageId) error = true; errorMessage = `No message ID provided\n.`
+		if (!data) {
+			error = true;
+			errorMessage = `No message data provided.\n`;
+		}
+		if (!data.guildId) {
+			error = true;
+			errorMessage = `No guild ID provided.\n`;
+		}
+		if (!data.channelId) {
+			error = true;
+			errorMessage = `No channel ID provided\n.`;
+		}
+		if (!data.messageId) {
+			error = true;
+			errorMessage = `No message ID provided\n.`;
+		}
 
 		if (error)
 			return res.status(404).send({ success: false, message: errorMessage });
 
-		const guild: Guild | undefined = this.discordClient.guilds.get(data.guildId);
+		const guild: Guild | undefined = this.discordClient.guilds.get(
+			data.guildId
+		);
 
-		if (!guild) return res.status(404).send({ success: false, message: `Guild not found.` });
+		if (!guild)
+			return res
+				.status(404)
+				.send({ success: false, message: `Guild not found.` });
 
-		const channel: TextChannel | undefined = await guild.channels.get(data.channelId!) as TextChannel;
-		
-		if (!channel) return res.status(404).send({ success: false, message: `Channel not found.` });
-		const message: Message | undefined = await channel.messages.get(data.messageId!) as Message;
+		const channel: TextChannel | undefined = (await guild.channels.get(
+			data.channelId!
+		)) as TextChannel;
 
-		if (!message) return res.status(404).send({ success: false, message: `Message not found.` });
+		if (!channel)
+			return res
+				.status(404)
+				.send({ success: false, message: `Channel not found.` });
+		const message: Message | undefined = (await channel.messages.get(
+			data.messageId!
+		)) as Message;
+
+		if (!message)
+			return res
+				.status(404)
+				.send({ success: false, message: `Message not found.` });
 		message.delete();
-		
+
 		return res.status(200).send({ success: true, message: `Message deleted.` });
-	}
+	};
 
 	/**
 	 * @method createMessage
@@ -93,34 +125,66 @@ export default class MessageEndPoints {
 	 *
 	 * @memberof API.message
 	 */
-	public createMessage: Handler = async (req: Request, res: Response): Promise<Response> => {
+	public createMessage: Handler = async (
+		req: Request,
+		res: Response
+	): Promise<Response> => {
 		const data: MessageData = req.body;
-		if (!data.guildId) return res.status(400).send({ success: false, message: `No guild ID provided.` });
-		if (!data.channelId) return res.status(400).send({ success: false, message: `No channel ID provided.` });
+		if (!data.guildId)
+			return res
+				.status(400)
+				.send({ success: false, message: `No guild ID provided.` });
+		if (!data.channelId)
+			return res
+				.status(400)
+				.send({ success: false, message: `No channel ID provided.` });
 
-		const guild: Guild | undefined = this.discordClient.guilds.get(data.guildId);
+		const guild: Guild | undefined = this.discordClient.guilds.get(
+			data.guildId
+		);
 		const guildStorage: GuildStorage | undefined = await this.discordClient.storage.guilds.get(data.guildId);
 
-		if (!guild) return res.status(404).send({ success: false, message: `Guild not found.` });
+		if (!guild)
+			return res
+				.status(404)
+				.send({ success: false, message: `Guild not found.` });
 
-		const channel: TextChannel | undefined = await guild.channels.get(data.channelId) as TextChannel;
+		const channel: TextChannel | undefined = (await guild.channels.get(
+			data.channelId
+		)) as TextChannel;
 
-		if (!channel) return res.status(404).send({ success: false, message: `Channel not found.` });
-		if (!guildStorage) return res.status(500).send({ success: false, message: `There is no guild storage present for the specified guild.` });
+		if (!channel)
+			return res
+				.status(404)
+				.send({ success: false, message: `Channel not found.` });
+		if (!guildStorage)
+			return res
+				.status(500)
+				.send({
+					success: false,
+					message: `There is no guild storage present for the specified guild.`
+				});
 
-		let editableMessages: MessageData[] = await guildStorage.get(`EDITABLE_MESSAGES`);
-		const message: Message = await channel.send(data.messageContent) as Message;
-		const editableMessage: MessageData = { guildId: data.guildId, messageId: message.id, channelId: channel.id, messageTitle: data.messageTitle };
+		let editableMessages: MessageData[] = await guildStorage.get(
+			`EDITABLE_MESSAGES`
+		);
+		const message: Message = (await channel.send(
+			data.messageContent
+		)) as Message;
+		const editableMessage: MessageData = {
+			guildId: data.guildId,
+			messageId: message.id,
+			channelId: channel.id,
+			messageTitle: data.messageTitle
+		};
 
-		if (editableMessages)
-			editableMessages.push(editableMessage);
-		else
-			editableMessages = [editableMessage] as MessageData[];
-		
+		if (editableMessages) editableMessages.push(editableMessage);
+		else editableMessages = [editableMessage] as MessageData[];
+
 		await guildStorage.set(`EDITABLE_MESSAGES`, editableMessages);
 
 		return res.status(200).send({ success: true, message: `Message created.` });
-	}
+	};
 
 	/**
 	 * @method updateMessage
@@ -148,23 +212,50 @@ export default class MessageEndPoints {
 	 *
 	 * @memberof API.message
 	 */
-	public updateMessage: Handler = async (req: Request, res: Response): Promise<Response> => {
+	public updateMessage: Handler = async (
+		req: Request,
+		res: Response
+	): Promise<Response> => {
 		const data: MessageData = req.body;
-		if (!data.guildId) return res.status(400).send({ success: false, message: `No guild ID provided.` });
-		if (!data.channelId) return res.status(400).send({ success: false, message: `No channel ID provided.` });
-		if (!data.messageId) return res.status(400).send({ success: false, message: `No message ID provided.` });
+		if (!data.guildId)
+			return res
+				.status(400)
+				.send({ success: false, message: `No guild ID provided.` });
+		if (!data.channelId)
+			return res
+				.status(400)
+				.send({ success: false, message: `No channel ID provided.` });
+		if (!data.messageId)
+			return res
+				.status(400)
+				.send({ success: false, message: `No message ID provided.` });
 
-		const guild: Guild | undefined = this.discordClient.guilds.get(data.guildId);
+		const guild: Guild | undefined = this.discordClient.guilds.get(
+			data.guildId
+		);
 
-		if (!guild) return res.status(404).send({ success: false, message: `Guild not found.` });
-		const channel: TextChannel | undefined = await guild.channels.get(data.channelId) as TextChannel;
-	
-		if (!channel) return res.status(404).send({ success: false, message: `Channel not found.` });
-		const message: Message | undefined = await channel.messages.get(data.messageId) as Message;
+		if (!guild)
+			return res
+				.status(404)
+				.send({ success: false, message: `Guild not found.` });
+		const channel: TextChannel | undefined = (await guild.channels.get(
+			data.channelId
+		)) as TextChannel;
 
-		if (!message) return res.status(404).send({ success: false, message: `Message not found.` });
+		if (!channel)
+			return res
+				.status(404)
+				.send({ success: false, message: `Channel not found.` });
+		const message: Message | undefined = (await channel.messages.get(
+			data.messageId
+		)) as Message;
+
+		if (!message)
+			return res
+				.status(404)
+				.send({ success: false, message: `Message not found.` });
 		message.edit(data.messageContent);
 
 		return res.status(200).send({ success: true, message: `Message updated.` });
-	}
+	};
 }

@@ -40,4 +40,4 @@ export default interface Constants {
 	urlApod: string;
 	urlApodImgBase: string;
 	urlApodRandom: string;
-};
+}

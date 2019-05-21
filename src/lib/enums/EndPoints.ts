@@ -16,6 +16,6 @@ enum EndPoints {
 	createMessage = '/api/message/createMessage',
 	deleteMessage = '/api/message/deleteMessage',
 	updateMessage = '/api/message/updateMessage'
-};
+}
 
 export default EndPoints;

@@ -11,7 +11,7 @@ const { once } = ListenerUtil;
  * @description This class represents the heart of Aeden.
  * @extends Client
  */
-export class AedenDiscordClient extends Client {
+export default class AedenDiscordClient extends Client {
 	public readonly config: DiscordConfig;
 	private apiServer: AedenApiClient;
 

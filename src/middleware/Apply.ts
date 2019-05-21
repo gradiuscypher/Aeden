@@ -17,9 +17,9 @@ export default class Middleware {
 	 * new Handler().Apply([...Handler], Router)
 	 */
 	public Apply = (middleware: Wrapper[], router: Router): void => {
-		middleware.forEach(mw => {
+		middleware.forEach((mw): void => {
 			mw(router);
-		})
+		});
 	};
 
 	/**
@@ -32,8 +32,8 @@ export default class Middleware {
 	 * new Handler().Routes([...Route], Router)
 	 */
 	public Routes = (routes: Route[], router: Router): void => {
-		routes.forEach(route => {
+		routes.forEach((route): void => {
 			(router as Router)[route.method](route.path, route.handler);
 		});
-	}
+	};
 }

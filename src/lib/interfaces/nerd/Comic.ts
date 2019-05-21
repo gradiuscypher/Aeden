@@ -28,4 +28,4 @@ export default interface Comic {
 	title: string;
 	img: string;
 	alt: string;
-};
+}

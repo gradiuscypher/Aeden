@@ -6,4 +6,4 @@
 
 import { Router } from 'express';
 
-export type Wrapper = ((router: Router) => void);
+export type Wrapper = (router: Router) => void;

@@ -22,4 +22,4 @@ export default interface Picture {
 	title: string;
 	desc: string;
 	img: string;
-};
+}

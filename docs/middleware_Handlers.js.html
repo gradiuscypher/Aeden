@@ -90,18 +90,8 @@ class Handlers {
          */
         this.Cors = (router) => {
             router.use(cors({
-                methods: [
-                    Method_1.default.DELETE,
-                    Method_1.default.GET,
-                    Method_1.default.POST,
-                    Method_1.default.PUT
-                ],
-                allowedHeaders: [
-                    'Accept',
-                    'Content-Type',
-                    'Origin',
-                    'X-Requested-With'
-                ]
+                methods: [Method_1.default.DELETE, Method_1.default.GET, Method_1.default.POST, Method_1.default.PUT],
+                allowedHeaders: ['Accept', 'Content-Type', 'Origin', 'X-Requested-With']
             }));
         };
         /**

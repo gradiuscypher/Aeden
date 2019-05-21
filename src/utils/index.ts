@@ -24,24 +24,28 @@ export default class Util {
 	 * @returns {Promise<MessageEmbed>} The APoD {@link MessageEmbed}.
 	 */
 	public static async fetchApod(isRandom: boolean): Promise<MessageEmbed> {
-		const uri: string = (isRandom) ? this.getRandomApodUri() : constants.urlApod;
+		const uri: string = isRandom ? this.getRandomApodUri() : constants.urlApod;
 
 		const options: RequestOptions = {
-			'uri': uri,
-			'headers': [{ 'Connection': 'keep-alive' }],
-			'json': true
+			uri: uri,
+			headers: [{ Connection: 'keep-alive' }],
+			json: true
 		};
-		
-		return new Promise((resolve, reject): void => {
-			req(options)
-				.then((body): void => {
-					const item: Picture = this.processApod(cheerio.load(body), uri);
-					resolve(this.createApodEmbed(item));
-				})
-				.catch(function _reject(err?): void {
-					reject(err);
-				});
-		})
+
+		return new Promise(
+			(resolve, reject): void => {
+				req(options)
+					.then(
+						(body): void => {
+							const item: Picture = this.processApod(cheerio.load(body), uri);
+							resolve(this.createApodEmbed(item));
+						}
+					)
+					.catch(function _reject(err?): void {
+						reject(err);
+					});
+			}
+		);
 	}
 
 	/**
@@ -53,7 +57,17 @@ export default class Util {
 	private static getRandomApodUri(): string {
 		const now: Date = new Date();
 		const min: number = new Date(1995, 5, 16).getTime();
-		const max: number = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 18, 59, 59, 999).getTime() - (5 * 60 * 60 * 1000);
+		const max: number =
+			new Date(
+				now.getUTCFullYear(),
+				now.getUTCMonth(),
+				now.getUTCDate(),
+				18,
+				59,
+				59,
+				999
+			).getTime() -
+			5 * 60 * 60 * 1000;
 		const mMin: number = new Date(1995, 5, 17).getTime();
 		const mMax: number = new Date(1995, 5, 19, 23, 59, 59, 999).getTime();
 
@@ -64,7 +78,9 @@ export default class Util {
 
 		const randomDate: Date = new Date(rDate);
 		const rDay: string = (0 + randomDate.getDate().toString()).slice(-2);
-		const rMonth: string = (0 + (randomDate.getMonth() + 1).toString()).slice(-2);
+		const rMonth: string = (0 + (randomDate.getMonth() + 1).toString()).slice(
+			-2
+		);
 		const rYear: string = randomDate.getFullYear().toString();
 
 		return `${constants.urlApodRandom}${rYear.slice(-2)}${rMonth}${rDay}.html`;
@@ -79,21 +95,28 @@ export default class Util {
 	 * @returns {Picture} The processed {@link Picture}.
 	 */
 	private static processApod($: CheerioStatic, uri: string): Picture {
-		const title: string = $('center + center > b:first-child').text().trim();
+		const title: string = $('center + center > b:first-child')
+			.text()
+			.trim();
 		const img: string = $('img').attr('src');
-		let desc: string = $('center + center + p').text().trim()
+		let desc: string = $('center + center + p')
+			.text()
+			.trim()
 			.replace(/(\s)+/g, ' ')
 			.replace(/(\r\n|\n|\r)/gm, '')
 			.replace(/(Explanation:)/, '');
 
-		desc = (desc === '') ? '*There is no description for this content.*' : desc;
-		desc = (desc.length > 250) ? `${desc.substring(0, 250)}... [read more »](${uri})` : desc;
+		desc = desc === '' ? '*There is no description for this content.*' : desc;
+		desc =
+			desc.length > 250
+				? `${desc.substring(0, 250)}... [read more »](${uri})`
+				: desc;
 
 		return {
-			'title': title,
-			'img': constants.urlApodImgBase + img,
-			'desc': desc
-		}
+			title: title,
+			img: constants.urlApodImgBase + img,
+			desc: desc
+		};
 	}
 
 	/**
@@ -119,28 +142,41 @@ export default class Util {
 	 * @param {boolean?} isRandom - Are we fetching a random comic?
 	 * @returns {Promise<MessageEmbed>} The XKCD Comic `MessageEmbed`.
 	 */
-	public static async fetchComic(n?: number, isRandom?: boolean): Promise<MessageEmbed> {
+	public static async fetchComic(
+		n?: number,
+		isRandom?: boolean
+	): Promise<MessageEmbed> {
 		let uri = '';
 
 		if (isRandom) {
 			const currentComicCount = await this.fetchCurrentComicCount();
-			const randomComicNumber = Math.floor((Math.random() * currentComicCount) + 1);
+			const randomComicNumber = Math.floor(
+				Math.random() * currentComicCount + 1
+			);
 			uri = `${constants.urlXkcd}/${randomComicNumber}/info.0.json`;
 		}
 
 		if (n) uri = `${constants.urlXkcd}/${n}/info.0.json`;
 
 		const options = {
-			'uri': uri,
-			'headers': [{ 'Connection': 'keep-alive' }],
-			'json': true
+			uri: uri,
+			headers: [{ Connection: 'keep-alive' }],
+			json: true
 		};
 
-		return new Promise((resolve, reject): void => {
-			req(options)
-				.then((item: Comic): void => { resolve(this.createXkcdEmbed(item)); })
-				.catch(function _reject(err?: string | undefined): void { reject(err); });
-		})
+		return new Promise(
+			(resolve, reject): void => {
+				req(options)
+					.then(
+						(item: Comic): void => {
+							resolve(this.createXkcdEmbed(item));
+						}
+					)
+					.catch(function _reject(err?: string | undefined): void {
+						reject(err);
+					});
+			}
+		);
 	}
 
 	/**
@@ -168,19 +204,23 @@ export default class Util {
 	private static async fetchCurrentComicCount(): Promise<number> {
 		const options: RequestOptions = {
 			uri: constants.rssFeedXkcd,
-			headers: [{ 'Connection': 'keep-alive' }],
+			headers: [{ Connection: 'keep-alive' }],
 			json: true
 		};
 
-		return new Promise((resolve, reject): void => {
-			req(options)
-				.then((item: Comic): void => {
-					resolve(item.num);
-				})
-				.catch(function _reject(err?): void {
-					reject(err);
-				});
-		})
+		return new Promise(
+			(resolve, reject): void => {
+				req(options)
+					.then(
+						(item: Comic): void => {
+							resolve(item.num);
+						}
+					)
+					.catch(function _reject(err?): void {
+						reject(err);
+					});
+			}
+		);
 	}
 
 	/**
@@ -191,7 +231,7 @@ export default class Util {
 	 * @returns {string} The padded string.
 	 */
 	public static pad(n: string): string {
-		return (Number(n) < 10) ? (`0${n}`) : n;
+		return Number(n) < 10 ? `0${n}` : n;
 	}
 
 	/**
@@ -202,7 +242,7 @@ export default class Util {
 	 * @returns {boolean} Is the string numerical?
 	 */
 	public static isNumerical(s: string | number): s is number {
-		return (!Number.isNaN(Number(s.toString())));
+		return !Number.isNaN(Number(s.toString()));
 	}
 
 	/**
@@ -212,22 +252,26 @@ export default class Util {
 	 * @param {string | number} s - The string to check.
 	 * @returns {boolean} Is the string numerical?
 	 */
-	public static async removeInvalidMessages(editableMessages: MessageData[], guild: Guild): Promise<MessageData[]> {
+	public static async removeInvalidMessages(
+		editableMessages: MessageData[],
+		guild: Guild
+	): Promise<MessageData[]> {
 		const array: MessageData[] = [];
 
 		if (!editableMessages) return editableMessages;
 
-		await editableMessages.forEach(async (m) => {
+		await editableMessages.forEach(async (m): Promise<void> => {
 			if (!m.channelId) return;
 			if (!m.messageId) return;
 
-			const channel: TextChannel | undefined = await guild.channels.get(m.channelId) as TextChannel;
-			const message: Message | undefined = (channel)
+			const channel: TextChannel | undefined = (await guild.channels.get(
+				m.channelId
+			)) as TextChannel;
+			const message: Message | undefined = channel
 				? await channel.messages.get(m.messageId)
 				: undefined;
 
-			if (message)
-				array.push(m);
+			if (message) array.push(m);
 		});
 
 		return array;

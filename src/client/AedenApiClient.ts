@@ -1,11 +1,10 @@
-
-import { AedenDiscordClient } from './AedenDiscordClient';
-import { Logger, logger } from '@yamdbf/core';
-import { Wrapper } from '../lib/types/Wrapper';
-
+import AedenDiscordClient from './AedenDiscordClient';
 import Api from '../api';
 import Handlers from '../middleware/Handlers';
 import Middleware from '../middleware/Apply';
+
+import { Logger, logger } from '@yamdbf/core';
+import { Wrapper } from '../lib/types/Wrapper';
 
 import * as express from 'express';
 import * as helmet from 'helmet';
@@ -14,8 +13,7 @@ import * as helmet from 'helmet';
  * @class AedenApiClient
  * @description This class represents an instance of the {@link AedenApiClient}.
  */
-export class AedenApiClient
-{
+export class AedenApiClient {
 	@logger('AedenAPI')
 	private readonly logger: Logger;
 	private static instance: AedenApiClient;
@@ -23,8 +21,7 @@ export class AedenApiClient
 	private middleware: Middleware;
 	public server: express.Express;
 
-	public constructor()
-	{
+	public constructor() {
 		this.server = express();
 		this.server.use(helmet());
 
@@ -39,8 +36,7 @@ export class AedenApiClient
 	 *
 	 * @memberof AedenApiClient
 	 */
-	public static _instance(): AedenApiClient
-	{
+	public static _instance(): AedenApiClient {
 		return AedenApiClient.instance || new AedenApiClient();
 	}
 
@@ -62,9 +58,12 @@ export class AedenApiClient
 		this.middleware.Apply(middleware, this.server);
 		this.middleware.Routes(new Api(discordClient).endpoints, this.server);
 
-		this.server.listen(3000, (): void => {
-			this.logger.info(`Server listening on port 3000`);
-		});
+		this.server.listen(
+			3000,
+			(): void => {
+				this.logger.info(`Server listening on port 3000`);
+			}
+		);
 
 		return this;
 	}

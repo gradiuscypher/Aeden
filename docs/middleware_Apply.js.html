@@ -66,7 +66,7 @@ class Middleware {
          * new Handler().Apply([...Handler], Router)
          */
         this.Apply = (middleware, router) => {
-            middleware.forEach(mw => {
+            middleware.forEach((mw) => {
                 mw(router);
             });
         };
@@ -80,7 +80,7 @@ class Middleware {
          * new Handler().Routes([...Route], Router)
          */
         this.Routes = (routes, router) => {
-            routes.forEach(route => {
+            routes.forEach((route) => {
                 router[route.method](route.path, route.handler);
             });
         };
