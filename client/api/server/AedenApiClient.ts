@@ -1,5 +1,5 @@
-import AedenDiscordClient from './AedenDiscordClient';
-import Api from '../api';
+import AedenDiscordClient from '../../bot/user/AedenDiscordClient';
+import Api from '../endpoints';
 import Handlers from '../middleware/Handlers';
 import Middleware from '../middleware/Apply';
 

@@ -1,4 +1,4 @@
-import AedenDiscordClient from '../client/AedenDiscordClient';
+import AedenDiscordClient from '../../bot/user/AedenDiscordClient';
 import EndPoints from '../lib/enums/EndPoints';
 import Method from '../lib/enums/Method';
 import Route from '../lib/interfaces/Route';

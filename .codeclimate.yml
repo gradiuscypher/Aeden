@@ -46,15 +46,7 @@ plugins:
  eslint:
   enabled: true
 exclude_patterns:
-- "config/"
-- "db/"
-- "dist/"
+- "bin/"
 - "docs/"
-- "features/"
 - "**/node_modules/"
-- "script/"
-- "**/spec/"
-- "**/test/"
-- "**/tests/"
-- "**/vendor/"
 - "**/*.d.ts"

@@ -1,7 +1,10 @@
 /bin/*
 /node_modules/*
 
-/src/client/dev-config.json
-/src/client/dev-api-config.json
-/src/client/prod-config.json
-/src/client/prod-api-config.json
+/client/node_modules/*
+
+/client/bot/user/dev-config.json
+/client/bot/user/prod-config.json
+
+/client/api/server/dev-config.json
+/client/api/server/prod-config.json

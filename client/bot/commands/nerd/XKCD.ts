@@ -1,7 +1,7 @@
 import { Command, Message } from '@yamdbf/core';
 import { MessageEmbed } from 'discord.js';
 
-import Util from '../../utils';
+import Util from '../../lib/Util';
 
 export default class XKCD extends Command {
 	public constructor() {

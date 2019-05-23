@@ -1,4 +1,4 @@
-import MessageData from './MessageData';
+import MessageData from '../../../../shared/lib/interfaces/MessageData';
 
 export default interface ApiResponse {
 	status: number;

@@ -7,8 +7,8 @@ import {
 	MessageEmbed,
 	Collection
 } from 'discord.js';
-import Statuses from '../../lib/enums/Statuses';
-import constants from '../../utils/Constants';
+import Statuses from '../../lib/enums/Statuses'
+import constants from '../../lib/Constants';
 
 export default class Stats extends Command {
 	public constructor() {

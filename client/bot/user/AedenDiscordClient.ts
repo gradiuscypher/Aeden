@@ -1,7 +1,7 @@
 import { Client, ListenerUtil, LogLevel } from '@yamdbf/core';
-import { AedenApiClient } from './AedenApiClient';
+import { AedenApiClient } from '../../api/server/AedenApiClient';
 
-import DiscordConfig from '../lib/interfaces/discord/DiscordConfig';
+import DiscordConfig from '../lib/interfaces/Config';
 import config = require('./config.json');
 
 const { once } = ListenerUtil;
@@ -20,7 +20,7 @@ export default class AedenDiscordClient extends Client {
 			token: config.token,
 			owner: config.owner,
 			statusText: config.status,
-			commandsDir: './discordCommands',
+			commandsDir: './commands',
 			disableBase: [
 				'eval',
 				'eval:ts',

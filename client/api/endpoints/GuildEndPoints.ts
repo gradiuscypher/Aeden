@@ -1,6 +1,6 @@
-import AedenDiscordClient from '../client/AedenDiscordClient';
-import MessageData from '../lib/interfaces/api/MessageData';
-import Util from '../utils';
+import AedenDiscordClient from '../../bot/user/AedenDiscordClient';
+import MessageData from '../../../shared/lib/interfaces/MessageData';
+import Util from '../lib/Util';
 
 import { Handler, Request, Response } from 'express';
 import { GuildMember, Guild, GuildEmojiStore } from 'discord.js';

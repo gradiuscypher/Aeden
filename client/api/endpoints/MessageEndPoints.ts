@@ -1,5 +1,5 @@
-import AedenDiscordClient from '../client/AedenDiscordClient';
-import MessageData from '../lib/interfaces/api/MessageData';
+import AedenDiscordClient from '../../bot/user/AedenDiscordClient';
+import MessageData from '../../../shared/lib/interfaces/MessageData';
 
 import { Handler, Request, Response } from 'express';
 import { Guild, TextChannel, Message } from 'discord.js';

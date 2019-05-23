@@ -2,8 +2,8 @@ import { Router } from 'express';
 import { Logger, logger } from '@yamdbf/core';
 import Method from '../lib/enums/Method';
 
-import ApiConfig from '../lib/interfaces/api/ApiConfig';
-import config = require('../client/api-config.json');
+import ApiConfig from '../lib/interfaces/Config';
+import config = require('../server/api-config.json');
 
 import * as cors from 'cors';
 import * as parser from 'body-parser';

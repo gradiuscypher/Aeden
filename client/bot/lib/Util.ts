@@ -8,7 +8,7 @@ import RequestOptions from '../lib/interfaces/request/RequestOptions';
 
 import * as cheerio from 'cheerio';
 import * as req from 'request-promise';
-import MessageData from '../lib/interfaces/api/MessageData';
+import MessageData from '../../../shared/lib/interfaces/MessageData';
 
 /**
  * @module Util
