@@ -4,8 +4,6 @@
 Client for Aeden, including both an API server and Discord bot client.  Currently a personal project and assists one server.
 Once functionality has been tested and confirmed, will look to make Aeden more dynamic.
 
------
-
 ## Dependencies
 Aeden is divided up via separate modules, each with their own dependencies.
 
@@ -14,8 +12,6 @@ Aeden is divided up via separate modules, each with their own dependencies.
 |Environment|[![dependencies Status](https://david-dm.org/kata-codes/aeden/status.svg)](https://david-dm.org/kata-codes/aeden)|[![devDependencies Status](https://david-dm.org/kata-codes/aeden/dev-status.svg)](https://david-dm.org/kata-codes/aeden?type=dev)|||
 |Client|[![dependencies Status](https://david-dm.org/kata-codes/aeden/status.svg?path=client)](https://david-dm.org/kata-codes/aeden?path=client)|[![devDependencies Status](https://david-dm.org/kata-codes/aeden/dev-status.svg?path=client)](https://david-dm.org/kata-codes/aeden?path=client&type=dev)||
 |Web|-|-|
-
------
 
 ## Acknowledgments
 I wouldn't have been able to create this project without help and support from the following people along the way.
