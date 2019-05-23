@@ -48,5 +48,6 @@ plugins:
 exclude_patterns:
 - "bin/"
 - "docs/"
+- "gulpfile"
 - "**/node_modules/"
 - "**/*.d.ts"
