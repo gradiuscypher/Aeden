@@ -2,14 +2,14 @@
 	"compilerOptions": {
 		"module": "commonjs",
 		"target": "es2018",
-		"lib": [ "es2018" ],
+		"lib": ["es2018"],
 		"declaration": true,
 		"experimentalDecorators": true,
 		"importHelpers": true,
 		"moduleResolution": "node",
 		"noImplicitAny": true,
 		"noImplicitReturns": true,
-		"noImplicitThis": true,      
+		"noImplicitThis": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"pretty": true,
@@ -19,9 +19,5 @@
 		"strictNullChecks": true,
 		"suppressImplicitAnyIndexErrors": true
 	},
-	"exclude": [
-		"bin",
-		"client/node_modules",
-		"node_modules"
-	]
+	"exclude": ["bin", "client/node_modules", "node_modules"]
 }
