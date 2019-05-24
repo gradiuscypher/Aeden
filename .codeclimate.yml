@@ -1,4 +1,4 @@
-version: "2"
+version: '2'
 checks:
   argument-count:
     enabled: true
@@ -41,13 +41,13 @@ checks:
     config:
       threshold: #language-specific defaults. overrides affect all languages.
 plugins:
- rubocop:
-  enabled: true
- eslint:
-  enabled: true
+  rubocop:
+    enabled: true
+  eslint:
+    enabled: true
 exclude_patterns:
-- "bin/"
-- "docs/"
-- "gulpfile"
-- "**/node_modules/"
-- "**/*.d.ts"
+  - 'bin/'
+  - 'docs/'
+  - 'gulpfile.js'
+  - '**/node_modules/'
+  - '**/*.d.ts'
