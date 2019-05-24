@@ -34,9 +34,12 @@
 		"gulp": "^4.0.2",
 		"gulp-cli": "^2.2.0",
 		"gulp-eslint": "^5.0.0",
+		"gulp-jsdoc3": "^2.0.0",
 		"gulp-sourcemaps": "^2.6.5",
 		"gulp-typescript": "^5.0.1",
+		"jsdoc": "^3.6.2",
 		"lerna": "^3.14.1",
+		"tui-jsdoc-template": "github:katagatame/tui.jsdoc-template",
 		"typescript": "^3.4.5"
 	},
 	"eslintIgnore": [
