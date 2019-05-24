@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Source: lib/interfaces/Route.js | Source: lib/interfaces/Route.js</title>
+    <title>Source: api/lib/Util.js | Source: api/lib/Util.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -28,7 +28,7 @@
         
     </div>
     <div class="title">
-        <h1><a href="index.html" class="link">Source: lib/interfaces/Route.js</a></h1>
+        <h1><a href="index.html" class="link">Source: api/lib/Util.js</a></h1>
         
     </div>
     <div class="search-container" id="search-container">
@@ -49,25 +49,41 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>"use strict";
-/**
- * @description Interface for {@link Route}.
- * @interface Route
- */
-/**
- * @name Route#path
- * @type {string}
- */
-/**
- * @name Route#method
- * @type {string}
- */
-/**
- * @name Route#handler
- * @type {Handler | Handler[]}
- */
 Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * @module Util
+ * @description Utility class containing static methods.
+ */
+class Util {
+    /**
+     * @static
+     * @method removeInvalidMessages
+     * @description Method to remove any messages that are invalid, or that have been deleted from a guild.
+     * @param {string | number} s - The string to check.
+     * @returns {boolean} Is the string numerical?
+     */
+    static async removeInvalidMessages(editableMessages, guild) {
+        const array = [];
+        if (!editableMessages)
+            return editableMessages;
+        await editableMessages.forEach(async (m) => {
+            if (!m.channelId)
+                return;
+            if (!m.messageId)
+                return;
+            const channel = (await guild.channels.get(m.channelId));
+            const message = channel
+                ? await channel.messages.get(m.messageId)
+                : undefined;
+            if (message)
+                array.push(m);
+        });
+        return array;
+    }
+}
+exports.default = Util;
 
-//# sourceMappingURL=Route.js.map
+//# sourceMappingURL=Util.js.map
 </code></pre>
         </article>
     </section>

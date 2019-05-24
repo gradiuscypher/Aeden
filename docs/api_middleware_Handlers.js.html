@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Source: api/index.js | Source: api/index.js</title>
+    <title>Source: api/middleware/Handlers.js | Source: api/middleware/Handlers.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -28,7 +28,7 @@
         
     </div>
     <div class="title">
-        <h1><a href="index.html" class="link">Source: api/index.js</a></h1>
+        <h1><a href="index.html" class="link">Source: api/middleware/Handlers.js</a></h1>
         
     </div>
     <div class="search-container" id="search-container">
@@ -50,54 +50,79 @@
         <article>
             <pre class="prettyprint source linenums"><code>"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const EndPoints_1 = require("../lib/enums/EndPoints");
+const tslib_1 = require("tslib");
+const core_1 = require("@yamdbf/core");
 const Method_1 = require("../lib/enums/Method");
-const EndPoints_2 = require("./EndPoints");
+const config = require("../server/api-config.json");
+const cors = require("cors");
+const parser = require("body-parser");
+const compression = require("compression");
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const AccessControl = require('express-ip-access-control');
 /**
- * @namespace API
- * @description This class represents an instance of {@link Route Routes}, all of the API server endpoints.
+ * @module Handlers
+ * @description Middleware handler containing methods to apply Authentication, CORS, JSON body parsing, compression.  Also contains endpoint and routing.
  */
-class API {
-    constructor(client) {
-        this.discordClient = client;
-        this.guild = new EndPoints_2.GuildEndPoints(this.discordClient);
-        this.message = new EndPoints_2.MessageEndPoints(this.discordClient);
-        this.endpoints = new Array(6);
-        this.endpoints.push({
-            path: EndPoints_1.default.isAedenHere,
-            method: Method_1.default.GET,
-            handler: this.guild.isAedenHere
-        });
-        this.endpoints.push({
-            path: EndPoints_1.default.getEditableMessages,
-            method: Method_1.default.GET,
-            handler: this.guild.getEditableMessages
-        });
-        this.endpoints.push({
-            path: EndPoints_1.default.getEmojis,
-            method: Method_1.default.GET,
-            handler: this.guild.getEmojis
-        });
-        this.endpoints.push({
-            path: EndPoints_1.default.createMessage,
-            method: Method_1.default.POST,
-            handler: this.message.createMessage
-        });
-        this.endpoints.push({
-            path: EndPoints_1.default.updateMessage,
-            method: Method_1.default.PUT,
-            handler: this.message.updateMessage
-        });
-        this.endpoints.push({
-            path: EndPoints_1.default.deleteMessage,
-            method: Method_1.default.DELETE,
-            handler: this.message.deleteMessage
-        });
+class Handlers {
+    constructor() {
+        this.apiConfig = config;
+        /**
+         * @method BodyRequestParsing
+         * @description Handler for JSON parsing a body.
+         * @param {Router} router The {Router} to apply JSON body parsing to.
+         */
+        this.BodyRequestParsing = (router) => {
+            router.use(parser.urlencoded({ extended: true }));
+            router.use(parser.json());
+        };
+        /**
+         * @method Compression
+         * @description Handler for compression.
+         * @param {Router} router The {Router} to apply compression to.
+         */
+        this.Compression = (router) => {
+            router.use(compression());
+        };
+        /**
+         * @method Cors
+         * @description Handler for Cross-Origin Resource Sharing (CORS).
+         * @param {Router} router The {Router} to apply Cross-Origin Resource Sharing to.
+         */
+        this.Cors = (router) => {
+            router.use(cors({
+                methods: [Method_1.default.DELETE, Method_1.default.GET, Method_1.default.POST, Method_1.default.PUT],
+                allowedHeaders: ['Accept', 'Content-Type', 'Origin', 'X-Requested-With']
+            }));
+        };
+        /**
+         * @method Whitelist
+         * @description Handler for whitelisting IPs.
+         * @param {Router} router The {Router} to whitelist IP addresses for.
+         */
+        this.Whitelist = (router) => {
+            const options = {
+                mode: 'allow',
+                denys: [],
+                allows: this.apiConfig.whitelist,
+                forceConnectionAddress: false,
+                log: (clientIp, access) => {
+                    if (!access)
+                        this.logger.log(`${clientIp} denied.`);
+                },
+                statusCode: 401,
+                redirectTo: '',
+                message: 'Unauthorized access...'
+            };
+            router.use(AccessControl(options));
+        };
     }
 }
-exports.default = API;
+tslib_1.__decorate([
+    core_1.logger('AedenAPI')
+], Handlers.prototype, "logger", void 0);
+exports.default = Handlers;
 
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=Handlers.js.map
 </code></pre>
         </article>
     </section>

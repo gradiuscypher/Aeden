@@ -1,8 +1,10 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Module: Handlers | Module: Handlers</title>
+    <title>Source: api/middleware/Apply.js | Source: api/middleware/Apply.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -26,7 +28,7 @@
         
     </div>
     <div class="title">
-        <h1><a href="index.html" class="link">Module: Handlers</a></h1>
+        <h1><a href="index.html" class="link">Source: api/middleware/Apply.js</a></h1>
         
     </div>
     <div class="search-container" id="search-container">
@@ -43,684 +45,53 @@
 
 
 
-
-<section>
-
-<header>
-    
-        <h2>Handlers</h2>
-        
-            
-        
-    
-</header>
-
-<article>
-    
-        <div class="container-overview">
-        
-            
-                <div class="description"><p>Middleware handler containing methods to apply Authentication, CORS, JSON body parsing, compression.  Also contains endpoint and routing.</p></div>
-            
-
-            
-                
-
-<dt>
-    
-</dt>
-<dd>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-</dd>
-
-            
-        
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        <dl>
-                
-
-<dt>
-    
-        <h4 class="name" id="~BodyRequestParsing">
-            
-                <span class="type-signature"><span class="icon green">inner</span> </span>BodyRequestParsing<span class="signature">(router)</span><span class="type-signature"></span>
-                
-            
-            <div class="container-source members">
-                <code><a href="api_middleware_Handlers.js.html">api/middleware/Handlers.js</a></code>,
-                <code><a href="api_middleware_Handlers.js.html#line19">line 19</a></code>
-            </div>
-            
-        </h4>
-
-        
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Handler for JSON parsing a body.</p>
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-    <div class="container-params">
-        <h5>Parameters:</h5>
-        
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>router</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Router</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The {Router} to apply JSON body parsing to.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-</dd>
-
-            
-                
-
-<dt>
-    
-        <h4 class="name" id="~Compression">
-            
-                <span class="type-signature"><span class="icon green">inner</span> </span>Compression<span class="signature">(router)</span><span class="type-signature"></span>
-                
-            
-            <div class="container-source members">
-                <code><a href="api_middleware_Handlers.js.html">api/middleware/Handlers.js</a></code>,
-                <code><a href="api_middleware_Handlers.js.html#line28">line 28</a></code>
-            </div>
-            
-        </h4>
-
-        
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Handler for compression.</p>
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-    <div class="container-params">
-        <h5>Parameters:</h5>
-        
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>router</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Router</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The {Router} to apply compression to.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-
     
-
-    
-
-    
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-</dd>
-
-            
-                
-
-<dt>
-    
-        <h4 class="name" id="~Cors">
-            
-                <span class="type-signature"><span class="icon green">inner</span> </span>Cors<span class="signature">(router)</span><span class="type-signature"></span>
-                
-            
-            <div class="container-source members">
-                <code><a href="api_middleware_Handlers.js.html">api/middleware/Handlers.js</a></code>,
-                <code><a href="api_middleware_Handlers.js.html#line36">line 36</a></code>
-            </div>
-            
-        </h4>
-
-        
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Handler for Cross-Origin Resource Sharing (CORS).</p>
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-    <div class="container-params">
-        <h5>Parameters:</h5>
-        
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>router</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Router</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The {Router} to apply Cross-Origin Resource Sharing to.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-</dd>
-
-            
-                
-
-<dt>
-    
-        <h4 class="name" id="~Whitelist">
-            
-                <span class="type-signature"><span class="icon green">inner</span> </span>Whitelist<span class="signature">(router)</span><span class="type-signature"></span>
-                
-            
-            <div class="container-source members">
-                <code><a href="api_middleware_Handlers.js.html">api/middleware/Handlers.js</a></code>,
-                <code><a href="api_middleware_Handlers.js.html#line47">line 47</a></code>
-            </div>
-            
-        </h4>
-
-        
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Handler for whitelisting IPs.</p>
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-    <div class="container-params">
-        <h5>Parameters:</h5>
-        
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>router</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Router</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The {Router} to whitelist IP addresses for.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-</dd>
-
-            </dl>
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * @module Middleware
+ * @description Methods to apply middleware and routing.
+ */
+class Middleware {
+    constructor() {
+        /**
+         * @method Apply
+         * @description Method to apply middleware and/or authentication.
+         * @param {Wrapper[]} middleware The wrapped array of middleware or authentication to apply to the {@link AedenApiClient} instance.
+         * @param {Router} router The {Router} to apply the wrapped array of middleware  or authentication to.
+         *
+         * @example
+         * new Handler().Apply([...Handler], Router)
+         */
+        this.Apply = (middleware, router) => {
+            middleware.forEach((mw) => {
+                mw(router);
+            });
+        };
+        /**
+         * @method Routes
+         * @description Method to apply routes.
+         * @param {Route[]} routes The array of {@link Route Routes} to apply to the {@link AedenApiClient} instance.
+         * @param {Router} router The {Router} to apply the {@link Route Routes} to.
+         *
+         * @example
+         * new Handler().Routes([...Route], Router)
+         */
+        this.Routes = (routes, router) => {
+            routes.forEach((route) => {
+                router[route.method](route.path, route.handler);
+            });
+        };
+    }
+}
+exports.default = Middleware;
+
+//# sourceMappingURL=Apply.js.map
+</code></pre>
+        </article>
+    </section>
 
 
 
@@ -737,7 +108,7 @@
 <script src="scripts/linenumber.js"></script>
 
     <script>
-        var id = 'module:Handlers_sub'.replace(/"/g, '_');
+        var id = '_sub'.replace(/"/g, '_');
         var selectedApi = document.getElementById(id); // do not use jquery selector
         var $selectedApi = $(selectedApi);
 

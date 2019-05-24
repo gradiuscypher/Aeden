@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Source: middleware/Handlers.js | Source: middleware/Handlers.js</title>
+    <title>Source: api/endpoints/GuildEndPoints.js | Source: api/endpoints/GuildEndPoints.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -28,7 +28,7 @@
         
     </div>
     <div class="title">
-        <h1><a href="index.html" class="link">Source: middleware/Handlers.js</a></h1>
+        <h1><a href="index.html" class="link">Source: api/endpoints/GuildEndPoints.js</a></h1>
         
     </div>
     <div class="search-container" id="search-container">
@@ -50,79 +50,132 @@
         <article>
             <pre class="prettyprint source linenums"><code>"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const tslib_1 = require("tslib");
-const core_1 = require("@yamdbf/core");
-const Method_1 = require("../lib/enums/Method");
-const config = require("../client/api-config.json");
-const cors = require("cors");
-const parser = require("body-parser");
-const compression = require("compression");
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const AccessControl = require('express-ip-access-control');
+const Util_1 = require("../lib/Util");
+const discord_js_1 = require("discord.js");
 /**
- * @module Handlers
- * @description Middleware handler containing methods to apply Authentication, CORS, JSON body parsing, compression.  Also contains endpoint and routing.
+ * @namespace guild
+ * @description Guild endpoints for Aeden's API server.
+ *
+ * @memberof API
  */
-class Handlers {
-    constructor() {
-        this.apiConfig = config;
+class GuildEndPoints {
+    constructor(client) {
         /**
-         * @method BodyRequestParsing
-         * @description Handler for JSON parsing a body.
-         * @param {Router} router The {Router} to apply JSON body parsing to.
+         * @method isAedenHere
+         * @description API endpoint to return True/False based on Aeden's presence within a specified Discord Guild/Server.
+         * @returns {Handler}
+         *
+         * @example Usage
+         * GET /api/guild/isAedenHere/&lt;guildId>
+         *
+         * @example Success
+         * { success: true, presence: true }
+         * { success: true, presence: false }
+         *
+         * @example Error
+         * { success: false, message: `&lt;error message>`, data: [] }
+         *
+         * @memberof API.guild
          */
-        this.BodyRequestParsing = (router) => {
-            router.use(parser.urlencoded({ extended: true }));
-            router.use(parser.json());
+        this.isAedenHere = async (req, res) => {
+            const guild = this.discordClient.guilds.get(req.params.id);
+            if (!this.discordClient.user)
+                return res
+                    .status(500)
+                    .send({ success: false, message: `Bot client user not found.` });
+            if (!guild)
+                return res
+                    .status(404)
+                    .send({ success: false, message: `Guild not found.` });
+            const isHere = guild.members.get(this.discordClient.user.id);
+            return isHere instanceof discord_js_1.GuildMember
+                ? res.status(200).send({ success: true, presence: true })
+                : res.status(200).send({ success: true, presence: false });
         };
         /**
-         * @method Compression
-         * @description Handler for compression.
-         * @param {Router} router The {Router} to apply compression to.
+         * @method getEmojis
+         * @description API endpoint to return a list of custom emoji for a specified guild.
+         * @returns {Handler}
+         *
+         * @example Usage
+         * GET /api/guild/getEmojis/&lt;guildId>
+         *
+         * @example Success
+         * { success: true, message: `List of emoji is in the &lt;data> property.`, data: [] }
+         * { success: true, message: `No custom emoji found.`, data: [] }
+         *
+         * @example Error
+         * { success: false, message: `&lt;error message>` }
+         *
+         * @memberof API.guild
          */
-        this.Compression = (router) => {
-            router.use(compression());
+        this.getEmojis = async (req, res) => {
+            const guild = await this.discordClient.guilds.get(req.params.id);
+            if (!guild)
+                return res
+                    .status(200)
+                    .send({ success: false, message: `Guild not found.` });
+            const emojiList = guild.emojis;
+            if (emojiList.size > 0)
+                return res.status(200).send({
+                    success: true,
+                    message: `List of emoji is in the &lt;data> property.`,
+                    data: emojiList
+                });
+            return res
+                .status(200)
+                .send({ success: true, message: `No custom emoji found.`, data: [] });
         };
         /**
-         * @method Cors
-         * @description Handler for Cross-Origin Resource Sharing (CORS).
-         * @param {Router} router The {Router} to apply Cross-Origin Resource Sharing to.
+         * @method getEditableMessages
+         * @description API endpoint to return a list of messages that Aeden can edit for a specified guild.
+         * @returns {Handler}
+         *
+         * @example Usage
+         * GET /api/guild/getEditableMessages/&lt;guildId>
+         *
+         * @example Success
+         * { success: true, message: `List of editable messages is in the &lt;data> property.`, data: [] }
+         * { success: true, message: `No editable messages found.`, data: [] }
+         *
+         * @example Error
+         * { success: false, message: `&lt;error message>`, data: [] }
+         *
+         * @memberof API.guild
          */
-        this.Cors = (router) => {
-            router.use(cors({
-                methods: [Method_1.default.DELETE, Method_1.default.GET, Method_1.default.POST, Method_1.default.PUT],
-                allowedHeaders: ['Accept', 'Content-Type', 'Origin', 'X-Requested-With']
-            }));
+        this.getEditableMessages = async (req, res) => {
+            const guild = await this.discordClient.guilds.get(req.params.id);
+            const guildStorage = await this.discordClient.storage.guilds.get(req.params.id);
+            let editableMessages = guildStorage
+                ? await guildStorage.get(`EDITABLE_MESSAGES`)
+                : undefined;
+            if (!guild || !guildStorage)
+                return res.status(200).send({
+                    success: false,
+                    message: `Guild not found. and/or GuildStorage not found.`,
+                    data: []
+                });
+            editableMessages = await Util_1.default.removeInvalidMessages(editableMessages, guild);
+            if (editableMessages)
+                await guildStorage.set(`EDITABLE_MESSAGES`, editableMessages);
+            return editableMessages
+                ? res.status(200).send({
+                    success: true,
+                    message: `List of editable messages is in the &lt;data> property.`,
+                    data: editableMessages
+                })
+                : res.status(200).send({
+                    success: true,
+                    message: `No editable messages found.`,
+                    data: []
+                });
         };
-        /**
-         * @method Whitelist
-         * @description Handler for whitelisting IPs.
-         * @param {Router} router The {Router} to whitelist IP addresses for.
-         */
-        this.Whitelist = (router) => {
-            const options = {
-                mode: 'allow',
-                denys: [],
-                allows: this.apiConfig.whitelist,
-                forceConnectionAddress: false,
-                log: (clientIp, access) => {
-                    if (!access)
-                        this.logger.log(`${clientIp} denied.`);
-                },
-                statusCode: 401,
-                redirectTo: '',
-                message: 'Unauthorized access...'
-            };
-            router.use(AccessControl(options));
-        };
+        this.discordClient = client;
     }
 }
-tslib_1.__decorate([
-    core_1.logger('AedenAPI')
-], Handlers.prototype, "logger", void 0);
-exports.default = Handlers;
+exports.default = GuildEndPoints;
 
-//# sourceMappingURL=Handlers.js.map
+//# sourceMappingURL=GuildEndPoints.js.map
 </code></pre>
         </article>
     </section>

@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Source: client/AedenDiscordClient.js | Source: client/AedenDiscordClient.js</title>
+    <title>Source: bot/lib/interfaces/Constants.js | Source: bot/lib/interfaces/Constants.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -28,7 +28,7 @@
         
     </div>
     <div class="title">
-        <h1><a href="index.html" class="link">Source: client/AedenDiscordClient.js</a></h1>
+        <h1><a href="index.html" class="link">Source: bot/lib/interfaces/Constants.js</a></h1>
         
     </div>
     <div class="search-container" id="search-container">
@@ -49,89 +49,38 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const tslib_1 = require("tslib");
-const core_1 = require("@yamdbf/core");
-const AedenApiClient_1 = require("./AedenApiClient");
-const config = require("./config.json");
-const { once } = core_1.ListenerUtil;
 /**
- * @class AedenDiscordClient
- * @description This class represents the heart of Aeden.
- * @extends Client
+ * @description Interface for {@link Constants} used throughout the bot.
+ * @interface Constants
  */
-class AedenDiscordClient extends core_1.Client {
-    constructor() {
-        super({
-            token: config.token,
-            owner: config.owner,
-            statusText: config.status,
-            commandsDir: './discordCommands',
-            disableBase: [
-                'eval',
-                'eval:ts',
-                'ping',
-                'setlang',
-                'setprefix',
-                'shortcuts'
-            ],
-            logLevel: core_1.LogLevel.DEBUG,
-            readyText: 'Ready\u0007',
-            ratelimit: '10/1m',
-            pause: true
-        });
-        this.config = config;
-    }
-    /**
-     * @async
-     * @method _onPause
-     * @description Listener for the `pause` event.
-     * @listens pause
-     *
-     * @memberof AedenDiscordClient
-     */
-    async _onPause() {
-        /** Ensure Aeden's default prefix is always `.` */
-        await this.setDefaultSetting('prefix', '.');
-        this.emit('continue');
-    }
-    /**
-     * @async
-     * @method _onClientReady
-     * @description Listener for the `clientReady` event.
-     * @listens clientReady
-     *
-     * @memberof AedenDiscordClient
-     */
-    async _onClientReady() {
-        this.apiServer = new AedenApiClient_1.AedenApiClient().init(this);
-    }
-    /**
-     * @async
-     * @method _onDisconnect
-     * @description Listener for the `disconnect` event.
-     * @listens disconnect
-     *
-     * @memberof AedenDiscordClient
-     */
-    async _onDisconnect() {
-        /** cease all motor functions... */
-        this.apiServer.kill();
-        process.exit(100);
-    }
-}
-tslib_1.__decorate([
-    once('pause')
-], AedenDiscordClient.prototype, "_onPause", null);
-tslib_1.__decorate([
-    once('clientReady')
-], AedenDiscordClient.prototype, "_onClientReady", null);
-tslib_1.__decorate([
-    once('disconnect')
-], AedenDiscordClient.prototype, "_onDisconnect", null);
-exports.default = AedenDiscordClient;
+/**
+ * @description RSS feed for XCKD ({@link https://xkcd.com/info.0.json https://xkcd.com/info.0.json}).
+ * @name Constants#rssFeedXkcd
+ * @type {string}
+ */
+/**
+ * @description URL for XKCD ({@link https://xkcd.com https://xkcd.com}).
+ * @name Constants#urlXkcd
+ * @type {string}
+ */
+/**
+ * @description URL for APoD ({@link https://apod.nasa.gov/apod/astropix.html https://apod.nasa.gov/apod/astropix.html}).
+ * @name Constants#urlApod
+ * @type {string}
+ */
+/**
+ * @description Base URL for APoD Images ({@link https://apod.nasa.gov/apod/ https://apod.nasa.gov/apod/}).
+ * @name Constants#urlApodImgBase
+ * @type {string}
+ */
+/**
+ * @description URL for random APoD ({@link https://apod.nasa.gov/apod/ap https://apod.nasa.gov/apod/ap}).
+ * @name Constants#urlApodRandom
+ * @type {string}
+ */
+Object.defineProperty(exports, "__esModule", { value: true });
 
-//# sourceMappingURL=AedenDiscordClient.js.map
+//# sourceMappingURL=Constants.js.map
 </code></pre>
         </article>
     </section>

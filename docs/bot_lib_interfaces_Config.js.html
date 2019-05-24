@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Source: lib/interfaces/nerd/Comic.js | Source: lib/interfaces/nerd/Comic.js</title>
+    <title>Source: bot/lib/interfaces/Config.js | Source: bot/lib/interfaces/Config.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -28,7 +28,7 @@
         
     </div>
     <div class="title">
-        <h1><a href="index.html" class="link">Source: lib/interfaces/nerd/Comic.js</a></h1>
+        <h1><a href="index.html" class="link">Source: bot/lib/interfaces/Config.js</a></h1>
         
     </div>
     <div class="search-container" id="search-container">
@@ -50,32 +50,39 @@
         <article>
             <pre class="prettyprint source linenums"><code>"use strict";
 /**
- * @interface Comic
- * @description Interface for XKCD {@link Comic}.
+ * @ignore
+ * @interface DiscordConfig
+ * @name Config:Discord
+ * @description Interface for {@link Config:Discord} file.
  */
 /**
- * @name Comic#num
- * @description The number of the comic.
- * @type {number}
- */
-/**
- * @name Comic#title
- * @description The title of the comic.
+ * @name Config:Discord#token
+ * @description Aeden's unique Discord token.
  * @type {string}
  */
 /**
- * @name Comic#img
- * @description The comic image.
+ * @name Config:Discord#owner
+ * @description Discord ID of the owner of Aeden.
+ * @type {string[]}
+ */
+/**
+ * @name Config:Discord#name
+ * @description Aeden's name... Aeden.
  * @type {string}
  */
 /**
- * @name Comic#alt
- * @description The comic's hilarious alt text.
+ * @name Config:Discord#version
+ * @description Aeden's version.
+ * @type {string}
+ */
+/**
+ * @name Config:Discord#status
+ * @description Aeden's status.
  * @type {string}
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 
-//# sourceMappingURL=Comic.js.map
+//# sourceMappingURL=Config.js.map
 </code></pre>
         </article>
     </section>

@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Source: lib/interfaces/api/ApiConfig.js | Source: lib/interfaces/api/ApiConfig.js</title>
+    <title>Source: bot/lib/interfaces/request/RequestOptions.js | Source: bot/lib/interfaces/request/RequestOptions.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -28,7 +28,7 @@
         
     </div>
     <div class="title">
-        <h1><a href="index.html" class="link">Source: lib/interfaces/api/ApiConfig.js</a></h1>
+        <h1><a href="index.html" class="link">Source: bot/lib/interfaces/request/RequestOptions.js</a></h1>
         
     </div>
     <div class="search-container" id="search-container">
@@ -50,19 +50,27 @@
         <article>
             <pre class="prettyprint source linenums"><code>"use strict";
 /**
- * @ignore
- * @interface ApiConfig
- * @name Config:API
- * @description Interface for {@link Config:API} file.
+ * @interface RequestOptions
+ * @description Interface for {@link RequestOptions}.
  */
 /**
- * @name Config:API#whitelist
- * @description Array of allowed IPs.
- * @type {string[]}
+ * @name RequestOptions#uri
+ * @description URI of the request.
+ * @type {string}
+ */
+/**
+ * @name RequestOptions#headers
+ * @description Headers to accompany the request.
+ * @type {Object[]}
+ */
+/**
+ * @name RequestOptions#json
+ * @description Boolean flag to set if you are expecting a JSON result.
+ * @type {boolean}
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 
-//# sourceMappingURL=ApiConfig.js.map
+//# sourceMappingURL=RequestOptions.js.map
 </code></pre>
         </article>
     </section>

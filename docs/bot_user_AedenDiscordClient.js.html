@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Source: middleware/Apply.js | Source: middleware/Apply.js</title>
+    <title>Source: bot/user/AedenDiscordClient.js | Source: bot/user/AedenDiscordClient.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -28,7 +28,7 @@
         
     </div>
     <div class="title">
-        <h1><a href="index.html" class="link">Source: middleware/Apply.js</a></h1>
+        <h1><a href="index.html" class="link">Source: bot/user/AedenDiscordClient.js</a></h1>
         
     </div>
     <div class="search-container" id="search-container">
@@ -50,45 +50,88 @@
         <article>
             <pre class="prettyprint source linenums"><code>"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const core_1 = require("@yamdbf/core");
+const AedenApiClient_1 = require("../../api/server/AedenApiClient");
+const config = require("./config.json");
+const { once } = core_1.ListenerUtil;
 /**
- * @module Middleware
- * @description Methods to apply middleware and routing.
+ * @class AedenDiscordClient
+ * @description This class represents the heart of Aeden.
+ * @extends Client
  */
-class Middleware {
+class AedenDiscordClient extends core_1.Client {
     constructor() {
-        /**
-         * @method Apply
-         * @description Method to apply middleware and/or authentication.
-         * @param {Wrapper[]} middleware The wrapped array of middleware or authentication to apply to the {@link AedenApiClient} instance.
-         * @param {Router} router The {Router} to apply the wrapped array of middleware  or authentication to.
-         *
-         * @example
-         * new Handler().Apply([...Handler], Router)
-         */
-        this.Apply = (middleware, router) => {
-            middleware.forEach((mw) => {
-                mw(router);
-            });
-        };
-        /**
-         * @method Routes
-         * @description Method to apply routes.
-         * @param {Route[]} routes The array of {@link Route Routes} to apply to the {@link AedenApiClient} instance.
-         * @param {Router} router The {Router} to apply the {@link Route Routes} to.
-         *
-         * @example
-         * new Handler().Routes([...Route], Router)
-         */
-        this.Routes = (routes, router) => {
-            routes.forEach((route) => {
-                router[route.method](route.path, route.handler);
-            });
-        };
+        super({
+            token: config.token,
+            owner: config.owner,
+            statusText: config.status,
+            commandsDir: './commands',
+            disableBase: [
+                'eval',
+                'eval:ts',
+                'ping',
+                'setlang',
+                'setprefix',
+                'shortcuts'
+            ],
+            logLevel: core_1.LogLevel.DEBUG,
+            readyText: 'Ready\u0007',
+            ratelimit: '10/1m',
+            pause: true
+        });
+        this.config = config;
+    }
+    /**
+     * @async
+     * @method _onPause
+     * @description Listener for the `pause` event.
+     * @listens pause
+     *
+     * @memberof AedenDiscordClient
+     */
+    async _onPause() {
+        /** Ensure Aeden's default prefix is always `.` */
+        await this.setDefaultSetting('prefix', '.');
+        this.emit('continue');
+    }
+    /**
+     * @async
+     * @method _onClientReady
+     * @description Listener for the `clientReady` event.
+     * @listens clientReady
+     *
+     * @memberof AedenDiscordClient
+     */
+    async _onClientReady() {
+        this.apiServer = new AedenApiClient_1.AedenApiClient().init(this);
+    }
+    /**
+     * @async
+     * @method _onDisconnect
+     * @description Listener for the `disconnect` event.
+     * @listens disconnect
+     *
+     * @memberof AedenDiscordClient
+     */
+    async _onDisconnect() {
+        /** cease all motor functions... */
+        this.apiServer.kill();
+        process.exit(100);
     }
 }
-exports.default = Middleware;
+tslib_1.__decorate([
+    once('pause')
+], AedenDiscordClient.prototype, "_onPause", null);
+tslib_1.__decorate([
+    once('clientReady')
+], AedenDiscordClient.prototype, "_onClientReady", null);
+tslib_1.__decorate([
+    once('disconnect')
+], AedenDiscordClient.prototype, "_onDisconnect", null);
+exports.default = AedenDiscordClient;
 
-//# sourceMappingURL=Apply.js.map
+//# sourceMappingURL=AedenDiscordClient.js.map
 </code></pre>
         </article>
     </section>

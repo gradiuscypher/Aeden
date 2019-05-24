@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Source: client/AedenApiClient.js | Source: client/AedenApiClient.js</title>
+    <title>Source: api/lib/interfaces/Route.js | Source: api/lib/interfaces/Route.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -28,7 +28,7 @@
         
     </div>
     <div class="title">
-        <h1><a href="index.html" class="link">Source: client/AedenApiClient.js</a></h1>
+        <h1><a href="index.html" class="link">Source: api/lib/interfaces/Route.js</a></h1>
         
     </div>
     <div class="search-container" id="search-container">
@@ -49,74 +49,25 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const tslib_1 = require("tslib");
-const api_1 = require("../api");
-const Handlers_1 = require("../middleware/Handlers");
-const Apply_1 = require("../middleware/Apply");
-const core_1 = require("@yamdbf/core");
-const express = require("express");
-const helmet = require("helmet");
 /**
- * @class AedenApiClient
- * @description This class represents an instance of the {@link AedenApiClient}.
+ * @description Interface for {@link Route}.
+ * @interface Route
  */
-class AedenApiClient {
-    constructor() {
-        this.server = express();
-        this.server.use(helmet());
-        this.handlers = new Handlers_1.default();
-        this.middleware = new Apply_1.default();
-    }
-    /**
-     * @method instance
-     * @description Method to return an instance of the {@link AedenApiClient}.
-     * @returns {AedenApiClient}
-     *
-     * @memberof AedenApiClient
-     */
-    static _instance() {
-        return AedenApiClient.instance || new AedenApiClient();
-    }
-    /**
-     * @method init
-     * @description Method to initialize and instance of {@link AedenApiClient}.
-     * @param {AedenDiscordClient} discordClient The Discord client that the {@link AedenApiClient} interacts with.
-     *
-     * @memberof AedenApiClient
-     */
-    init(discordClient) {
-        const middleware = [
-            this.handlers.Whitelist,
-            this.handlers.BodyRequestParsing,
-            this.handlers.Cors,
-            this.handlers.Compression
-        ];
-        this.middleware.Apply(middleware, this.server);
-        this.middleware.Routes(new api_1.default(discordClient).endpoints, this.server);
-        this.server.listen(3000, () => {
-            this.logger.info(`Server listening on port 3000`);
-        });
-        return this;
-    }
-    /**
-     * @async
-     * @method _kill
-     * @description Kills the server.
-     *
-     * @memberof AedenApiClient
-     */
-    async kill() {
-        /** cease all motor functions... */
-        process.exit(100);
-    }
-}
-tslib_1.__decorate([
-    core_1.logger('AedenAPI')
-], AedenApiClient.prototype, "logger", void 0);
-exports.AedenApiClient = AedenApiClient;
+/**
+ * @name Route#path
+ * @type {string}
+ */
+/**
+ * @name Route#method
+ * @type {string}
+ */
+/**
+ * @name Route#handler
+ * @type {Handler | Handler[]}
+ */
+Object.defineProperty(exports, "__esModule", { value: true });
 
-//# sourceMappingURL=AedenApiClient.js.map
+//# sourceMappingURL=Route.js.map
 </code></pre>
         </article>
     </section>

@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Source: api/GuildEndPoints.js | Source: api/GuildEndPoints.js</title>
+    <title>Source: api/lib/interfaces/Config.js | Source: api/lib/interfaces/Config.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -28,7 +28,7 @@
         
     </div>
     <div class="title">
-        <h1><a href="index.html" class="link">Source: api/GuildEndPoints.js</a></h1>
+        <h1><a href="index.html" class="link">Source: api/lib/interfaces/Config.js</a></h1>
         
     </div>
     <div class="search-container" id="search-container">
@@ -49,133 +49,20 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const utils_1 = require("../utils");
-const discord_js_1 = require("discord.js");
 /**
- * @namespace guild
- * @description Guild endpoints for Aeden's API server.
- *
- * @memberof API
+ * @ignore
+ * @interface ApiConfig
+ * @name Config:API
+ * @description Interface for {@link Config:API} file.
  */
-class GuildEndPoints {
-    constructor(client) {
-        /**
-         * @method isAedenHere
-         * @description API endpoint to return True/False based on Aeden's presence within a specified Discord Guild/Server.
-         * @returns {Handler}
-         *
-         * @example Usage
-         * GET /api/guild/isAedenHere/&lt;guildId>
-         *
-         * @example Success
-         * { success: true, presence: true }
-         * { success: true, presence: false }
-         *
-         * @example Error
-         * { success: false, message: `&lt;error message>`, data: [] }
-         *
-         * @memberof API.guild
-         */
-        this.isAedenHere = async (req, res) => {
-            const guild = this.discordClient.guilds.get(req.params.id);
-            if (!this.discordClient.user)
-                return res
-                    .status(500)
-                    .send({ success: false, message: `Bot client user not found.` });
-            if (!guild)
-                return res
-                    .status(404)
-                    .send({ success: false, message: `Guild not found.` });
-            const isHere = guild.members.get(this.discordClient.user.id);
-            return isHere instanceof discord_js_1.GuildMember
-                ? res.status(200).send({ success: true, presence: true })
-                : res.status(200).send({ success: true, presence: false });
-        };
-        /**
-         * @method getEmojis
-         * @description API endpoint to return a list of custom emoji for a specified guild.
-         * @returns {Handler}
-         *
-         * @example Usage
-         * GET /api/guild/getEmojis/&lt;guildId>
-         *
-         * @example Success
-         * { success: true, message: `List of emoji is in the &lt;data> property.`, data: [] }
-         * { success: true, message: `No custom emoji found.`, data: [] }
-         *
-         * @example Error
-         * { success: false, message: `&lt;error message>` }
-         *
-         * @memberof API.guild
-         */
-        this.getEmojis = async (req, res) => {
-            const guild = await this.discordClient.guilds.get(req.params.id);
-            if (!guild)
-                return res
-                    .status(200)
-                    .send({ success: false, message: `Guild not found.` });
-            const emojiList = guild.emojis;
-            if (emojiList.size > 0)
-                return res.status(200).send({
-                    success: true,
-                    message: `List of emoji is in the &lt;data> property.`,
-                    data: emojiList
-                });
-            return res
-                .status(200)
-                .send({ success: true, message: `No custom emoji found.`, data: [] });
-        };
-        /**
-         * @method getEditableMessages
-         * @description API endpoint to return a list of messages that Aeden can edit for a specified guild.
-         * @returns {Handler}
-         *
-         * @example Usage
-         * GET /api/guild/getEditableMessages/&lt;guildId>
-         *
-         * @example Success
-         * { success: true, message: `List of editable messages is in the &lt;data> property.`, data: [] }
-         * { success: true, message: `No editable messages found.`, data: [] }
-         *
-         * @example Error
-         * { success: false, message: `&lt;error message>`, data: [] }
-         *
-         * @memberof API.guild
-         */
-        this.getEditableMessages = async (req, res) => {
-            const guild = await this.discordClient.guilds.get(req.params.id);
-            const guildStorage = await this.discordClient.storage.guilds.get(req.params.id);
-            let editableMessages = guildStorage
-                ? await guildStorage.get(`EDITABLE_MESSAGES`)
-                : undefined;
-            if (!guild || !guildStorage)
-                return res.status(200).send({
-                    success: false,
-                    message: `Guild not found. and/or GuildStorage not found.`,
-                    data: []
-                });
-            editableMessages = await utils_1.default.removeInvalidMessages(editableMessages, guild);
-            if (editableMessages)
-                await guildStorage.set(`EDITABLE_MESSAGES`, editableMessages);
-            return editableMessages
-                ? res.status(200).send({
-                    success: true,
-                    message: `List of editable messages is in the &lt;data> property.`,
-                    data: editableMessages
-                })
-                : res.status(200).send({
-                    success: true,
-                    message: `No editable messages found.`,
-                    data: []
-                });
-        };
-        this.discordClient = client;
-    }
-}
-exports.default = GuildEndPoints;
+/**
+ * @name Config:API#whitelist
+ * @description Array of allowed IPs.
+ * @type {string[]}
+ */
+Object.defineProperty(exports, "__esModule", { value: true });
 
-//# sourceMappingURL=GuildEndPoints.js.map
+//# sourceMappingURL=Config.js.map
 </code></pre>
         </article>
     </section>

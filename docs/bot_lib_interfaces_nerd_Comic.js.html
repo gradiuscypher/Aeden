@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Source: lib/interfaces/request/RequestOptions.js | Source: lib/interfaces/request/RequestOptions.js</title>
+    <title>Source: bot/lib/interfaces/nerd/Comic.js | Source: bot/lib/interfaces/nerd/Comic.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -28,7 +28,7 @@
         
     </div>
     <div class="title">
-        <h1><a href="index.html" class="link">Source: lib/interfaces/request/RequestOptions.js</a></h1>
+        <h1><a href="index.html" class="link">Source: bot/lib/interfaces/nerd/Comic.js</a></h1>
         
     </div>
     <div class="search-container" id="search-container">
@@ -50,27 +50,32 @@
         <article>
             <pre class="prettyprint source linenums"><code>"use strict";
 /**
- * @interface RequestOptions
- * @description Interface for {@link RequestOptions}.
+ * @interface Comic
+ * @description Interface for XKCD {@link Comic}.
  */
 /**
- * @name RequestOptions#uri
- * @description URI of the request.
+ * @name Comic#num
+ * @description The number of the comic.
+ * @type {number}
+ */
+/**
+ * @name Comic#title
+ * @description The title of the comic.
  * @type {string}
  */
 /**
- * @name RequestOptions#headers
- * @description Headers to accompany the request.
- * @type {Object[]}
+ * @name Comic#img
+ * @description The comic image.
+ * @type {string}
  */
 /**
- * @name RequestOptions#json
- * @description Boolean flag to set if you are expecting a JSON result.
- * @type {boolean}
+ * @name Comic#alt
+ * @description The comic's hilarious alt text.
+ * @type {string}
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 
-//# sourceMappingURL=RequestOptions.js.map
+//# sourceMappingURL=Comic.js.map
 </code></pre>
         </article>
     </section>
