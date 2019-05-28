@@ -20,7 +20,7 @@ export default class AedenDiscordClient extends Client {
 			token: config.token,
 			owner: config.owner,
 			statusText: config.status,
-			commandsDir: './commands',
+			commandsDir: './client/bot/commands',
 			disableBase: [
 				'eval',
 				'eval:ts',
