@@ -47,7 +47,9 @@ gulp.task('build:api', () => {
 		.pipe(sourcemaps.init({ base: './client/api/' }))
 		.pipe(apiProject());
 
-	gulp.src('./client/api/**/*.json').pipe(gulp.dest('./bin/client/api/'));
+	gulp
+		.src('./client/api/server/api-config.json')
+		.pipe(gulp.dest('./bin/client/api/server/'));
 
 	return api.js
 		.pipe(sourcemaps.write('.', { sourceRoot: './client/api/' }))
@@ -63,7 +65,9 @@ gulp.task('build:bot', () => {
 		.pipe(sourcemaps.init({ base: './client/bot/' }))
 		.pipe(botProject());
 
-	gulp.src('./client/bot/**/*.json').pipe(gulp.dest('./bin/client/bot/'));
+	gulp
+		.src('./client/bot/user/user-config.json')
+		.pipe(gulp.dest('./bin/client/bot/user/'));
 
 	return bot.js
 		.pipe(sourcemaps.write('.', { sourceRoot: './client/bot/' }))
