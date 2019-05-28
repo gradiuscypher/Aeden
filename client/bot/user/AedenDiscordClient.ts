@@ -2,7 +2,7 @@ import { Client, ListenerUtil, LogLevel } from '@yamdbf/core';
 import { AedenApiClient } from '../../api/server/AedenApiClient';
 
 import DiscordConfig from '../lib/interfaces/Config';
-import config = require('./config.json');
+import config = require('./user-config.json');
 
 const { once } = ListenerUtil;
 

@@ -1,4 +1,4 @@
-import AedenDiscordClient from '../client/bot/user/AedenDiscordClient';
+import AedenDiscordClient from './bot/user/AedenDiscordClient';
 
 /** Wake up, Aeden... */
 new AedenDiscordClient().start();
