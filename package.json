@@ -21,7 +21,7 @@
 	},
 	"scripts": {
 		"gulp": "gulp default",
-		"postinstall": "lerna bootstrap"
+		"postinstall": "lerna bootstrap --hoist"
 	},
 	"devDependencies": {
 		"@types/node": "^12.0.2",

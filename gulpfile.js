@@ -7,7 +7,7 @@ const typescript = require('gulp-typescript');
 
 /** Create gulp task `delete` */
 gulp.task('delete', done => {
-	del.sync(['./bin/**/*.*']);
+	del.sync(['./bin/']);
 	done();
 });
 
@@ -20,6 +20,56 @@ gulp.task('lint', () => {
 		.pipe(eslint.failAfterError());
 });
 
+/** Create gulp task 'build:client' */
+gulp.task('build:client', () => {
+	const clientProject = typescript.createProject('./tsconfig.json');
+
+	const client = gulp
+		.src(['./client/*.ts'])
+		.pipe(sourcemaps.init({ base: './client/' }))
+		.pipe(clientProject());
+
+	gulp.src('./client/package.json').pipe(gulp.dest('./bin/client/'));
+	gulp.src('./lerna.json').pipe(gulp.dest('./bin/'));
+	gulp.src('./package.json').pipe(gulp.dest('./bin/'));
+
+	return client.js
+		.pipe(sourcemaps.write('.', { sourceRoot: './client' }))
+		.pipe(gulp.dest('./bin/client/'));
+});
+
+/** Create gulp task 'build:api' */
+gulp.task('build:api', () => {
+	const apiProject = typescript.createProject('./tsconfig.json');
+
+	const api = gulp
+		.src('./client/api/**/*.ts')
+		.pipe(sourcemaps.init({ base: './client/api/' }))
+		.pipe(apiProject());
+
+	gulp.src('./client/api/**/*.json').pipe(gulp.dest('./bin/client/api/'));
+
+	return api.js
+		.pipe(sourcemaps.write('.', { sourceRoot: './client/api/' }))
+		.pipe(gulp.dest('./bin/client/api/'));
+});
+
+/** Create gulp task 'build:bot' */
+gulp.task('build:bot', () => {
+	const botProject = typescript.createProject('./tsconfig.json');
+
+	const bot = gulp
+		.src('./client/bot/**/*.ts')
+		.pipe(sourcemaps.init({ base: './client/bot/' }))
+		.pipe(botProject());
+
+	gulp.src('./client/bot/**/*.json').pipe(gulp.dest('./bin/client/bot/'));
+
+	return bot.js
+		.pipe(sourcemaps.write('.', { sourceRoot: './client/bot/' }))
+		.pipe(gulp.dest('./bin/client/bot/'));
+});
+
 /** Create gulp task 'build:docs' */
 gulp.task('build:docs', () => {
 	del.sync(['./docs/**/*.*'], { force: true });
@@ -29,45 +79,8 @@ gulp.task('build:docs', () => {
 	return gulp.src(['README.md', './bin/**/*.js']).pipe(jsdoc(jsDocConfig));
 });
 
-/** Create gulp task 'build:client' */
-gulp.task('build:client', done => {
-	const clientProject = typescript.createProject('./tsconfig.json');
-	const apiProject = typescript.createProject('./tsconfig.json');
-	const botProject = typescript.createProject('./tsconfig.json');
-
-	const client = gulp
-		.src('./client/*.ts')
-		.pipe(sourcemaps.init({ base: './client/' }))
-		.pipe(clientProject());
-
-	const api = gulp
-		.src('./client/api/**/*.ts')
-		.pipe(sourcemaps.init({ base: './client/api' }))
-		.pipe(apiProject());
-
-	const bot = gulp
-		.src('./client/bot/**/*.ts')
-		.pipe(sourcemaps.init({ base: './client/bot/' }))
-		.pipe(botProject());
-
-	client.pipe(gulp.dest('./bin/'));
-	api.pipe(gulp.dest('./bin/'));
-	bot.pipe(gulp.dest('./bin/'));
-
-	gulp.src('./client/api/**/*.json').pipe(gulp.dest('./bin/api/'));
-	gulp.src('./client/bot/**/*.json').pipe(gulp.dest('./bin/bot/'));
-
-	client.js
-		.pipe(sourcemaps.write('.', { sourceRoot: './client' }))
-		.pipe(gulp.dest('./bin/'));
-	api.js
-		.pipe(sourcemaps.write('.', { sourceRoot: './client/api' }))
-		.pipe(gulp.dest('./bin/api/'));
-	bot.js
-		.pipe(sourcemaps.write('.', { sourceRoot: './client/bot' }))
-		.pipe(gulp.dest('./bin/bot/'));
-	done();
-});
-
 /** Create gulp task `default`. */
-gulp.task('default', gulp.series('lint', 'delete', 'build:client'));
+gulp.task(
+	'default',
+	gulp.series('lint', 'delete', 'build:client', 'build:api', 'build:bot')
+);
