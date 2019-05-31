@@ -1,5 +1,10 @@
 # TODO: figure out why npm within Docker doesn't run the lerna commands automatically, like non-Docker installs
-# TODO: find a cleaner way to do configuration copying, currently if you don't have a user-config-dev.json in the bin/ dir, the docker build will fail.
+# TODO: find a cleaner way to do configuration copying, currently if you don't have a client/bot/user/user-config-dev.json, the docker build will fail.
+
+# Docker build instructions:
+# from root project directory: 
+#   * docker build -t aeden-docker .
+#   * docker run -p 3000:3000 -d aeden-docker
 
 # Select the right version of Node for the application
 FROM node:12
