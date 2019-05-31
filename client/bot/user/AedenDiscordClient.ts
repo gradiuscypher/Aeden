@@ -1,8 +1,9 @@
-import { Client, ListenerUtil, LogLevel } from '@yamdbf/core';
+import { Client, ListenerUtil, LogLevel, Providers } from '@yamdbf/core';
 import { AedenApiClient } from '../../api/server/AedenApiClient';
 
 import DiscordConfig from '../lib/interfaces/Config';
 import config = require('./user-config.json');
+import pgConfig = require('./pg-config.json');
 
 const { once } = ListenerUtil;
 
@@ -29,6 +30,11 @@ export default class AedenDiscordClient extends Client {
 				'setprefix',
 				'shortcuts'
 			],
+			provider: Providers.PostgresProvider(
+				`postgresql://${pgConfig.username}:${pgConfig.password}@${
+					pgConfig.server
+				}:${pgConfig.port}/${pgConfig.database}`
+			),
 			logLevel: LogLevel.DEBUG,
 			readyText: 'Ready\u0007',
 			ratelimit: '10/1m',

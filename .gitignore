@@ -8,3 +8,6 @@ client/api/server/api-config-dev.json
 
 client/bot/user/user-config-dev.json
 client/bot/user/user-config-prod.json
+
+client/bot/user/pg-config-dev.json
+client/bot/user/pg-config-prod.json
