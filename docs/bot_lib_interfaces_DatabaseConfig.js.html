@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Source: bot/user/AedenDiscordClient.js | Source: bot/user/AedenDiscordClient.js</title>
+    <title>Source: bot/lib/interfaces/DatabaseConfig.js | Source: bot/lib/interfaces/DatabaseConfig.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -28,7 +28,7 @@
         
     </div>
     <div class="title">
-        <h1><a href="index.html" class="link">Source: bot/user/AedenDiscordClient.js</a></h1>
+        <h1><a href="index.html" class="link">Source: bot/lib/interfaces/DatabaseConfig.js</a></h1>
         
     </div>
     <div class="search-container" id="search-container">
@@ -49,91 +49,40 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const tslib_1 = require("tslib");
-const core_1 = require("@yamdbf/core");
-const AedenApiClient_1 = require("../../api/server/AedenApiClient");
-const config = require("./user-config.json");
-const pgConfig = require("./pg-config.json");
-const { once } = core_1.ListenerUtil;
 /**
- * @class AedenDiscordClient
- * @description This class represents the heart of Aeden.
- * @extends Client
+ * @ignore
+ * @interface DatabaseConfig
+ * @name Config:Database
+ * @description Interface for {@link Config:Database} file.
  */
-class AedenDiscordClient extends core_1.Client {
-    constructor() {
-        super({
-            token: config.token,
-            owner: config.owner,
-            statusText: config.status,
-            commandsDir: './client/bot/commands',
-            disableBase: [
-                'eval',
-                'eval:ts',
-                'ping',
-                'setlang',
-                'setprefix',
-                'shortcuts'
-            ],
-            provider: core_1.Providers.PostgresProvider(`postgresql://${pgConfig.username}:${pgConfig.password}@${pgConfig.server}:${pgConfig.port}/${pgConfig.database}`),
-            logLevel: core_1.LogLevel.DEBUG,
-            readyText: 'Ready\u0007',
-            ratelimit: '10/1m',
-            pause: true
-        });
-        this.config = config;
-    }
-    /**
-     * @async
-     * @method _onPause
-     * @description Listener for the `pause` event.
-     * @listens pause
-     *
-     * @memberof AedenDiscordClient
-     */
-    async _onPause() {
-        /** Ensure Aeden's default prefix is always `.` */
-        await this.setDefaultSetting('prefix', '.');
-        this.emit('continue');
-    }
-    /**
-     * @async
-     * @method _onClientReady
-     * @description Listener for the `clientReady` event.
-     * @listens clientReady
-     *
-     * @memberof AedenDiscordClient
-     */
-    async _onClientReady() {
-        this.apiServer = new AedenApiClient_1.AedenApiClient().init(this);
-    }
-    /**
-     * @async
-     * @method _onDisconnect
-     * @description Listener for the `disconnect` event.
-     * @listens disconnect
-     *
-     * @memberof AedenDiscordClient
-     */
-    async _onDisconnect() {
-        /** cease all motor functions... */
-        this.apiServer.kill();
-        process.exit(100);
-    }
-}
-tslib_1.__decorate([
-    once('pause')
-], AedenDiscordClient.prototype, "_onPause", null);
-tslib_1.__decorate([
-    once('clientReady')
-], AedenDiscordClient.prototype, "_onClientReady", null);
-tslib_1.__decorate([
-    once('disconnect')
-], AedenDiscordClient.prototype, "_onDisconnect", null);
-exports.default = AedenDiscordClient;
+/**
+ * @name Config:Database#username
+ * @description Username for postgres database server.
+ * @type {string}
+ */
+/**
+ * @name Config:Database#password
+ * @description Password for postgres database server.
+ * @type {string}
+ */
+/**
+ * @name Config:Database#server
+ * @description Postgres server url.
+ * @type {string}
+ */
+/**
+ * @name Config:Database#port
+ * @description Postgres server port.
+ * @type {string}
+ */
+/**
+ * @name Config:Database#database
+ * @description Postgres database to connect to.
+ * @type {string}
+ */
+Object.defineProperty(exports, "__esModule", { value: true });
 
-//# sourceMappingURL=AedenDiscordClient.js.map
+//# sourceMappingURL=DatabaseConfig.js.map
 </code></pre>
         </article>
     </section>

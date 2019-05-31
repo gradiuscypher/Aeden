@@ -69,6 +69,10 @@ gulp.task('build:bot', () => {
 		.src('./client/bot/user/user-config.json')
 		.pipe(gulp.dest('./bin/client/bot/user/'));
 
+	gulp
+		.src('./client/bot/user/pg-config.json')
+		.pipe(gulp.dest('./bin/client/bot/user/'));
+
 	return bot.js
 		.pipe(sourcemaps.write('.', { sourceRoot: './client/bot/' }))
 		.pipe(gulp.dest('./bin/client/bot/'));

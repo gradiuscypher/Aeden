@@ -161,7 +161,7 @@ class Util {
      * @returns {Promise&lt;MessageEmbed>} The XKCD Comic `MessageEmbed`.
      */
     static async fetchComic(n, isRandom) {
-        let uri = '';
+        let uri = Constants_1.default.rssFeedXkcd;
         if (isRandom) {
             const currentComicCount = await this.fetchCurrentComicCount();
             const randomComicNumber = Math.floor(Math.random() * currentComicCount + 1);

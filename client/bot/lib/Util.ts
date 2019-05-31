@@ -144,7 +144,7 @@ export default class Util {
 		n?: number,
 		isRandom?: boolean
 	): Promise<MessageEmbed> {
-		let uri = '';
+		let uri = constants.rssFeedXkcd;
 
 		if (isRandom) {
 			const currentComicCount = await this.fetchCurrentComicCount();
