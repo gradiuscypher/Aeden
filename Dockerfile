@@ -38,6 +38,9 @@ RUN gulp default
 # Copy the configuration file for the application
 COPY ./client/bot/user/user-config-dev.json /usr/src/aeden/bin/client/bot/user/user-config.json
 
+# Copy the DB configuration file
+COPY ./client/bot/user/pg-config-dev.json /usr/src/aeden/bin/client/bot/user/pg-config.json
+
 # Set our working directory to bin
 WORKDIR /usr/src/aeden/bin
 
@@ -48,7 +51,7 @@ RUN npm install
 RUN ./node_modules/lerna/cli.js bootstrap --hoist
 
 # Execute sed command to allow access to localhost (from Docker)
-RUN sed -i "s/\"\"/\"::ffff:172.17.0.1\"/" client/api/server/api-config.json
+RUN sed -i "s/\"\"/\"::ffff:172.0.0.0\/8\"/" client/api/server/api-config.json
 
 # Expose the listening port
 EXPOSE 3000

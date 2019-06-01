@@ -1,0 +1,21 @@
+# docker-compose instructions:
+#   * install docker-compose: https://docs.docker.com/compose/install/
+#   * docker-compose build in the root project directory to build everything
+#   * docker-compose up to start the containers
+#   * docker-compose down to stop everything and delete the containers
+
+version: '3.3'
+services:
+  aeden:
+    build: .
+    ports:
+      - '3000:3000'
+    depends_on:
+      - pg
+  pg:
+    image: postgres
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: aeden-db
